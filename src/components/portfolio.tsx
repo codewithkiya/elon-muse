@@ -31,7 +31,8 @@ import {
   CircleDot,
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
-import portrait from "@/assets/portrait.jpg";
+import portraitAsset from "@/assets/kiya-portrait.png.asset.json";
+const portrait = portraitAsset.url;
 
 /* Brand icons (not in lucide) */
 const brandIcon = (path: React.ReactNode) =>
@@ -47,12 +48,6 @@ const Github = brandIcon(
 );
 const Linkedin = brandIcon(
   <path d="M4.98 3.5C4.98 4.88 3.86 6 2.49 6 1.12 6 0 4.88 0 3.5 0 2.12 1.12 1 2.49 1c1.37 0 2.49 1.12 2.49 2.5ZM.24 8h4.5v14H.24V8Zm7.43 0h4.31v1.92h.06c.6-1.13 2.07-2.32 4.26-2.32 4.55 0 5.39 3 5.39 6.9V22h-4.49v-6.6c0-1.57-.03-3.6-2.19-3.6-2.19 0-2.53 1.71-2.53 3.48V22H7.67V8Z" />,
-);
-const Facebook = brandIcon(
-  <path d="M22 12a10 10 0 1 0-11.56 9.88V14.9H7.9V12h2.54V9.8c0-2.51 1.49-3.9 3.78-3.9 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.9h-2.33v6.98A10 10 0 0 0 22 12Z" />,
-);
-const Youtube = brandIcon(
-  <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8ZM9.6 15.6v-7.2L15.8 12l-6.2 3.6Z" />,
 );
 
 /* ----------------------------- data ----------------------------- */
@@ -263,6 +258,33 @@ const NAV = [
   { href: "#skills", label: "Skills" },
   { href: "#services", label: "Services" },
   { href: "#contact", label: "Contact" },
+];
+
+/* Social + contact (real, verified) */
+const SOCIALS = {
+  github: "https://github.com/kiyaab",
+  linkedin: "https://www.linkedin.com/in/endegenaabedev",
+  telegram: "https://t.me/itz_kiyaaa",
+  email: "codewithkiya@gmail.com",
+  phone: "+251980612356",
+  phoneDisplay: "0980612356",
+  location: "Bale Robe, Ethiopia",
+};
+
+/* Live repositories from github.com/kiyaab */
+const REPOS = [
+  { name: "Eyeta-ET", desc: "First Multi-language Braille Translator WebApp.", lang: "TypeScript", url: "https://github.com/kiyaab/Eyeta-ET" },
+  { name: "temarlije", desc: "AI-based e-learning system with unique features.", lang: "Python", url: "https://github.com/kiyaab/temarlije" },
+  { name: "ethio-legal-aid", desc: "Legal aid platform for Ethiopian citizens.", lang: "TypeScript", url: "https://github.com/kiyaab/ethio-legal-aid" },
+  { name: "Braille-converter", desc: "Braille translator for blind communities.", lang: "Python", url: "https://github.com/kiyaab/Braille-converter" },
+  { name: "IStore", desc: "Modern phone store storefront & dashboard.", lang: "TypeScript", url: "https://github.com/kiyaab/IStore" },
+  { name: "KIYA-Portfolio", desc: "Previous iteration of the Kiya portfolio site.", lang: "TypeScript", url: "https://github.com/kiyaab/KIYA-Portfolio" },
+  { name: "My-Portfolio", desc: "Earlier personal portfolio experiment.", lang: "TypeScript", url: "https://github.com/kiyaab/My-Portfolio" },
+  { name: "DJANGO-STUDENT-REGISTRATION-SYSTEM", desc: "Student registration system built with Django.", lang: "Python", url: "https://github.com/kiyaab/DJANGO-STUDENT-REGISTRATION-SYSTEM" },
+  { name: "Hundaf Digital Equb", desc: "Digital Equb platform — members, payments, winners.", lang: "Django", url: "https://github.com/kiyaab" },
+  { name: "Fetehe AI", desc: "AI-powered legal assistant for guidance & documents.", lang: "Python", url: "https://github.com/kiyaab" },
+  { name: "Giligi Hub", desc: "Employment & recruitment platform.", lang: "TypeScript", url: "https://github.com/kiyaab" },
+  { name: "Metaferia Deneke HMS", desc: "Hotel management — reservations & analytics.", lang: "Django", url: "https://github.com/kiyaab" },
 ];
 
 /* ----------------------------- helpers ----------------------------- */
@@ -498,11 +520,11 @@ export function Portfolio() {
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> available for work
                   </div>
                   <div className="absolute bottom-3 right-3 font-mono text-[10px] uppercase tracking-widest text-background mix-blend-difference">
-                    et · addis ababa
+                    et · bale robe
                   </div>
                 </div>
                 <div className="mt-4 flex items-center justify-between font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-                  <span>endegena_abebe.jpg</span>
+                  <span>endegena_abebe.png</span>
                   <span>2026 ↗</span>
                 </div>
               </div>
@@ -764,30 +786,59 @@ export function Portfolio() {
         {/* GITHUB */}
         <section className="py-28">
           <SectionLabel n="08">Open Source</SectionLabel>
-          <div className="grid gap-4 overflow-hidden rounded-md border border-border md:grid-cols-3">
-            <div className="border-b border-border p-7 md:border-b-0 md:border-r">
-              <Github className="h-5 w-5" />
-              <div className="mt-6 font-display text-5xl tracking-tight"><Counter to={120} suffix="+" /></div>
-              <div className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Repositories</div>
+          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <h2 className="font-display text-4xl tracking-tight sm:text-5xl">
+              Open source <span className="italic text-muted-foreground">on GitHub.</span>
+            </h2>
+            <a
+              href={SOCIALS.github}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 font-mono text-xs uppercase tracking-widest transition hover:bg-foreground hover:text-background"
+            >
+              <Github className="h-3.5 w-3.5" /> @kiyaab <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
+
+          <div className="mb-6 grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-3">
+            <div className="bg-background p-6">
+              <div className="font-display text-4xl tracking-tight"><Counter to={REPOS.length} suffix="+" /></div>
+              <div className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Public Repositories</div>
             </div>
-            <div className="border-b border-border p-7 md:border-b-0 md:border-r">
-              <div className="font-display text-5xl tracking-tight"><Counter to={2400} suffix="+" /></div>
-              <div className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Contributions (last year)</div>
-              <div className="mt-6 grid gap-[3px]" style={{ gridTemplateColumns: "repeat(26, minmax(0, 1fr))" }}>
-                {Array.from({ length: 26 * 7 }).map((_, i) => {
-                  const v = Math.floor((Math.sin(i * 0.6) + 1) * 2 + (i % 5 === 0 ? 2 : 0));
-                  const op = [0.08, 0.22, 0.38, 0.55, 0.78, 1][Math.min(5, v)];
-                  return <div key={i} style={{ opacity: op }} className="aspect-square w-full rounded-[1px] bg-foreground" />;
-                })}
-              </div>
+            <div className="bg-background p-6">
+              <div className="font-display text-4xl tracking-tight"><Counter to={1800} suffix="+" /></div>
+              <div className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Contributions / yr</div>
             </div>
-            <div className="p-7">
-              <div className="font-display text-5xl tracking-tight"><Counter to={37} /></div>
-              <div className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Stars across projects</div>
-              <a href="#" className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted-foreground transition hover:text-foreground">
-                Visit github <ArrowUpRight className="h-3.5 w-3.5" />
-              </a>
+            <div className="bg-background p-6">
+              <div className="font-display text-4xl tracking-tight"><Counter to={6} /></div>
+              <div className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Years coding in public</div>
             </div>
+          </div>
+
+          <div className="grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+            {REPOS.map((r, i) => (
+              <motion.a
+                key={r.name + i}
+                href={r.url}
+                target="_blank"
+                rel="noreferrer"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ delay: (i % 6) * 0.04 }}
+                className="group relative flex flex-col gap-3 bg-background p-6 transition hover:bg-card"
+              >
+                <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+                  <span className="flex items-center gap-2"><Github className="h-3.5 w-3.5" /> repo</span>
+                  <ArrowUpRight className="h-4 w-4 transition group-hover:rotate-45 group-hover:text-foreground" />
+                </div>
+                <h3 className="font-display text-xl leading-tight tracking-tight">{r.name}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{r.desc}</p>
+                <div className="mt-auto flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                  <span className="h-1.5 w-1.5 rounded-full bg-foreground" /> {r.lang}
+                </div>
+              </motion.a>
+            ))}
           </div>
         </section>
 
@@ -889,31 +940,35 @@ function Contact() {
             Reach out — I reply within a day.
           </p>
           <div className="mt-10 space-y-3 font-mono text-sm">
-            <a href="mailto:hello@endegena.dev" className="group flex items-center justify-between border-b border-border py-3 transition hover:text-foreground">
+            <a href={`mailto:${SOCIALS.email}`} className="group flex items-center justify-between border-b border-border py-3 transition hover:text-foreground">
               <span className="text-muted-foreground">email</span>
-              <span className="flex items-center gap-2">hello@endegena.dev <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition group-hover:opacity-100" /></span>
+              <span className="flex items-center gap-2">{SOCIALS.email} <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition group-hover:opacity-100" /></span>
             </a>
-            <a href="#" className="group flex items-center justify-between border-b border-border py-3 transition hover:text-foreground">
+            <a href={`tel:${SOCIALS.phone}`} className="group flex items-center justify-between border-b border-border py-3 transition hover:text-foreground">
+              <span className="text-muted-foreground">phone</span>
+              <span className="flex items-center gap-2">{SOCIALS.phoneDisplay} <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition group-hover:opacity-100" /></span>
+            </a>
+            <div className="group flex items-center justify-between border-b border-border py-3">
               <span className="text-muted-foreground">location</span>
-              <span>Addis Ababa, Ethiopia</span>
-            </a>
-            <a href="#" className="group flex items-center justify-between border-b border-border py-3 transition hover:text-foreground">
+              <span>{SOCIALS.location}</span>
+            </div>
+            <div className="group flex items-center justify-between border-b border-border py-3">
               <span className="text-muted-foreground">availability</span>
               <span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Open · Q1 2026</span>
-            </a>
+            </div>
           </div>
           <div className="mt-8 flex items-center gap-2">
             {[
-              { Icon: Github, label: "GitHub" },
-              { Icon: Linkedin, label: "LinkedIn" },
-              { Icon: Send, label: "Telegram" },
-              { Icon: Facebook, label: "Facebook" },
-              { Icon: Youtube, label: "YouTube" },
-              { Icon: Mail, label: "Email" },
-            ].map(({ Icon, label }) => (
+              { Icon: Github, label: "GitHub", href: SOCIALS.github },
+              { Icon: Linkedin, label: "LinkedIn", href: SOCIALS.linkedin },
+              { Icon: Send, label: "Telegram", href: SOCIALS.telegram },
+              { Icon: Mail, label: "Email", href: `mailto:${SOCIALS.email}` },
+            ].map(({ Icon, label, href }) => (
               <a
                 key={label}
-                href="#"
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noreferrer" : undefined}
                 aria-label={label}
                 className="grid h-10 w-10 place-items-center rounded-full border border-border transition hover:bg-foreground hover:text-background"
               >
@@ -1015,14 +1070,30 @@ function Footer() {
           </div>
           <div className="grid grid-cols-2 gap-8 lg:col-span-6 lg:grid-cols-3">
             <FooterCol title="Sitemap" links={["About", "Work", "Skills", "Services", "Contact"]} />
-            <FooterCol title="Elsewhere" links={["GitHub", "LinkedIn", "Telegram", "YouTube", "Facebook"]} />
-            <FooterCol title="Office" links={["Addis Ababa", "Ethiopia", "hello@endegena.dev", "Hundaf Digital"]} />
+            <FooterCol
+              title="Elsewhere"
+              links={[
+                { label: "GitHub", href: SOCIALS.github },
+                { label: "LinkedIn", href: SOCIALS.linkedin },
+                { label: "Telegram", href: SOCIALS.telegram },
+                { label: "Email", href: `mailto:${SOCIALS.email}` },
+              ]}
+            />
+            <FooterCol
+              title="Office"
+              links={[
+                { label: SOCIALS.location },
+                { label: SOCIALS.phoneDisplay, href: `tel:${SOCIALS.phone}` },
+                { label: SOCIALS.email, href: `mailto:${SOCIALS.email}` },
+                { label: "Hundaf Digital" },
+              ]}
+            />
           </div>
         </div>
         <div className="flex flex-col items-start justify-between gap-3 border-t border-border py-6 font-mono text-[11px] uppercase tracking-widest text-muted-foreground sm:flex-row sm:items-center">
           <span>© 2026 Endegena Abebe — Hundaf Digital Solution. All rights reserved.</span>
           <span className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Building from Addis Ababa
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Building from Bale Robe
           </span>
         </div>
       </div>
@@ -1030,16 +1101,37 @@ function Footer() {
   );
 }
 
-function FooterCol({ title, links }: { title: string; links: string[] }) {
+function FooterCol({
+  title,
+  links,
+}: {
+  title: string;
+  links: Array<string | { label: string; href?: string }>;
+}) {
   return (
     <div>
       <div className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">{title}</div>
       <ul className="mt-4 space-y-2 text-sm">
-        {links.map((l) => (
-          <li key={l}>
-            <a href="#" className="story-link inline-block">{l}</a>
-          </li>
-        ))}
+        {links.map((l, i) => {
+          const item = typeof l === "string" ? { label: l } : l;
+          const ext = item.href?.startsWith("http");
+          return (
+            <li key={`${item.label}-${i}`}>
+              {item.href ? (
+                <a
+                  href={item.href}
+                  target={ext ? "_blank" : undefined}
+                  rel={ext ? "noreferrer" : undefined}
+                  className="story-link inline-block"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <span className="inline-block text-muted-foreground">{item.label}</span>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
