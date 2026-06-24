@@ -946,31 +946,35 @@ function Contact() {
             Reach out — I reply within a day.
           </p>
           <div className="mt-10 space-y-3 font-mono text-sm">
-            <a href="mailto:hello@endegena.dev" className="group flex items-center justify-between border-b border-border py-3 transition hover:text-foreground">
+            <a href={`mailto:${SOCIALS.email}`} className="group flex items-center justify-between border-b border-border py-3 transition hover:text-foreground">
               <span className="text-muted-foreground">email</span>
-              <span className="flex items-center gap-2">hello@endegena.dev <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition group-hover:opacity-100" /></span>
+              <span className="flex items-center gap-2">{SOCIALS.email} <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition group-hover:opacity-100" /></span>
             </a>
-            <a href="#" className="group flex items-center justify-between border-b border-border py-3 transition hover:text-foreground">
+            <a href={`tel:${SOCIALS.phone}`} className="group flex items-center justify-between border-b border-border py-3 transition hover:text-foreground">
+              <span className="text-muted-foreground">phone</span>
+              <span className="flex items-center gap-2">{SOCIALS.phoneDisplay} <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition group-hover:opacity-100" /></span>
+            </a>
+            <div className="group flex items-center justify-between border-b border-border py-3">
               <span className="text-muted-foreground">location</span>
-              <span>Addis Ababa, Ethiopia</span>
-            </a>
-            <a href="#" className="group flex items-center justify-between border-b border-border py-3 transition hover:text-foreground">
+              <span>{SOCIALS.location}</span>
+            </div>
+            <div className="group flex items-center justify-between border-b border-border py-3">
               <span className="text-muted-foreground">availability</span>
               <span className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Open · Q1 2026</span>
-            </a>
+            </div>
           </div>
           <div className="mt-8 flex items-center gap-2">
             {[
-              { Icon: Github, label: "GitHub" },
-              { Icon: Linkedin, label: "LinkedIn" },
-              { Icon: Send, label: "Telegram" },
-              { Icon: Facebook, label: "Facebook" },
-              { Icon: Youtube, label: "YouTube" },
-              { Icon: Mail, label: "Email" },
-            ].map(({ Icon, label }) => (
+              { Icon: Github, label: "GitHub", href: SOCIALS.github },
+              { Icon: Linkedin, label: "LinkedIn", href: SOCIALS.linkedin },
+              { Icon: Send, label: "Telegram", href: SOCIALS.telegram },
+              { Icon: Mail, label: "Email", href: `mailto:${SOCIALS.email}` },
+            ].map(({ Icon, label, href }) => (
               <a
                 key={label}
-                href="#"
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noreferrer" : undefined}
                 aria-label={label}
                 className="grid h-10 w-10 place-items-center rounded-full border border-border transition hover:bg-foreground hover:text-background"
               >
@@ -1072,14 +1076,30 @@ function Footer() {
           </div>
           <div className="grid grid-cols-2 gap-8 lg:col-span-6 lg:grid-cols-3">
             <FooterCol title="Sitemap" links={["About", "Work", "Skills", "Services", "Contact"]} />
-            <FooterCol title="Elsewhere" links={["GitHub", "LinkedIn", "Telegram", "YouTube", "Facebook"]} />
-            <FooterCol title="Office" links={["Addis Ababa", "Ethiopia", "hello@endegena.dev", "Hundaf Digital"]} />
+            <FooterCol
+              title="Elsewhere"
+              links={[
+                { label: "GitHub", href: SOCIALS.github },
+                { label: "LinkedIn", href: SOCIALS.linkedin },
+                { label: "Telegram", href: SOCIALS.telegram },
+                { label: "Email", href: `mailto:${SOCIALS.email}` },
+              ]}
+            />
+            <FooterCol
+              title="Office"
+              links={[
+                { label: SOCIALS.location },
+                { label: SOCIALS.phoneDisplay, href: `tel:${SOCIALS.phone}` },
+                { label: SOCIALS.email, href: `mailto:${SOCIALS.email}` },
+                { label: "Hundaf Digital" },
+              ]}
+            />
           </div>
         </div>
         <div className="flex flex-col items-start justify-between gap-3 border-t border-border py-6 font-mono text-[11px] uppercase tracking-widest text-muted-foreground sm:flex-row sm:items-center">
           <span>© 2026 Endegena Abebe — Hundaf Digital Solution. All rights reserved.</span>
           <span className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Building from Addis Ababa
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Building from Bale Robe
           </span>
         </div>
       </div>
@@ -1087,16 +1107,37 @@ function Footer() {
   );
 }
 
-function FooterCol({ title, links }: { title: string; links: string[] }) {
+function FooterCol({
+  title,
+  links,
+}: {
+  title: string;
+  links: Array<string | { label: string; href?: string }>;
+}) {
   return (
     <div>
       <div className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">{title}</div>
       <ul className="mt-4 space-y-2 text-sm">
-        {links.map((l) => (
-          <li key={l}>
-            <a href="#" className="story-link inline-block">{l}</a>
-          </li>
-        ))}
+        {links.map((l, i) => {
+          const item = typeof l === "string" ? { label: l } : l;
+          const ext = item.href?.startsWith("http");
+          return (
+            <li key={`${item.label}-${i}`}>
+              {item.href ? (
+                <a
+                  href={item.href}
+                  target={ext ? "_blank" : undefined}
+                  rel={ext ? "noreferrer" : undefined}
+                  className="story-link inline-block"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <span className="inline-block text-muted-foreground">{item.label}</span>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
