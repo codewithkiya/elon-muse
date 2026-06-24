@@ -31,7 +31,8 @@ import {
   CircleDot,
 } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
-import portrait from "@/assets/portrait.jpg";
+import portraitAsset from "@/assets/kiya-portrait.png.asset.json";
+const portrait = portraitAsset.url;
 
 /* Brand icons (not in lucide) */
 const brandIcon = (path: React.ReactNode) =>
@@ -263,6 +264,33 @@ const NAV = [
   { href: "#skills", label: "Skills" },
   { href: "#services", label: "Services" },
   { href: "#contact", label: "Contact" },
+];
+
+/* Social + contact (real, verified) */
+const SOCIALS = {
+  github: "https://github.com/kiyaab",
+  linkedin: "https://www.linkedin.com/in/endegenaabedev",
+  telegram: "https://t.me/itz_kiyaaa",
+  email: "codewithkiya@gmail.com",
+  phone: "+251980612356",
+  phoneDisplay: "0980612356",
+  location: "Bale Robe, Ethiopia",
+};
+
+/* Live repositories from github.com/kiyaab */
+const REPOS = [
+  { name: "Eyeta-ET", desc: "First Multi-language Braille Translator WebApp.", lang: "TypeScript", url: "https://github.com/kiyaab/Eyeta-ET" },
+  { name: "temarlije", desc: "AI-based e-learning system with unique features.", lang: "Python", url: "https://github.com/kiyaab/temarlije" },
+  { name: "ethio-legal-aid", desc: "Legal aid platform for Ethiopian citizens.", lang: "TypeScript", url: "https://github.com/kiyaab/ethio-legal-aid" },
+  { name: "Braille-converter", desc: "Braille translator for blind communities.", lang: "Python", url: "https://github.com/kiyaab/Braille-converter" },
+  { name: "IStore", desc: "Modern phone store storefront & dashboard.", lang: "TypeScript", url: "https://github.com/kiyaab/IStore" },
+  { name: "KIYA-Portfolio", desc: "Previous iteration of the Kiya portfolio site.", lang: "TypeScript", url: "https://github.com/kiyaab/KIYA-Portfolio" },
+  { name: "My-Portfolio", desc: "Earlier personal portfolio experiment.", lang: "TypeScript", url: "https://github.com/kiyaab/My-Portfolio" },
+  { name: "DJANGO-STUDENT-REGISTRATION-SYSTEM", desc: "Student registration system built with Django.", lang: "Python", url: "https://github.com/kiyaab/DJANGO-STUDENT-REGISTRATION-SYSTEM" },
+  { name: "Hundaf Digital Equb", desc: "Digital Equb platform — members, payments, winners.", lang: "Django", url: "https://github.com/kiyaab" },
+  { name: "Fetehe AI", desc: "AI-powered legal assistant for guidance & documents.", lang: "Python", url: "https://github.com/kiyaab" },
+  { name: "Giligi Hub", desc: "Employment & recruitment platform.", lang: "TypeScript", url: "https://github.com/kiyaab" },
+  { name: "Metaferia Deneke HMS", desc: "Hotel management — reservations & analytics.", lang: "Django", url: "https://github.com/kiyaab" },
 ];
 
 /* ----------------------------- helpers ----------------------------- */
@@ -498,11 +526,11 @@ export function Portfolio() {
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> available for work
                   </div>
                   <div className="absolute bottom-3 right-3 font-mono text-[10px] uppercase tracking-widest text-background mix-blend-difference">
-                    et · addis ababa
+                    et · bale robe
                   </div>
                 </div>
                 <div className="mt-4 flex items-center justify-between font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-                  <span>endegena_abebe.jpg</span>
+                  <span>endegena_abebe.png</span>
                   <span>2026 ↗</span>
                 </div>
               </div>
