@@ -773,7 +773,7 @@ export function Portfolio() {
             <div className="border-b border-border p-7 md:border-b-0 md:border-r">
               <div className="font-display text-5xl tracking-tight"><Counter to={2400} suffix="+" /></div>
               <div className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Contributions (last year)</div>
-              <div className="mt-6 grid grid-cols-26 gap-[3px]">
+              <div className="mt-6 grid gap-[3px]" style={{ gridTemplateColumns: "repeat(26, minmax(0, 1fr))" }}>
                 {Array.from({ length: 26 * 7 }).map((_, i) => {
                   const v = Math.floor((Math.sin(i * 0.6) + 1) * 2 + (i % 5 === 0 ? 2 : 0));
                   const op = [0.08, 0.22, 0.38, 0.55, 0.78, 1][Math.min(5, v)];
