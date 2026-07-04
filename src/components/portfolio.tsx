@@ -287,6 +287,7 @@ const NAV = [
   { href: "#about", label: "About" },
   { href: "#work", label: "Work" },
   { href: "#skills", label: "Skills" },
+  { href: "#achievements", label: "Awards" },
   { href: "#services", label: "Services" },
   { href: "#contact", label: "Contact" },
 ];
@@ -303,19 +304,20 @@ const SOCIALS = {
 };
 
 /* Live repositories from github.com/kiyaab */
-const REPOS = [
-  { name: "Eyeta-ET", desc: "First Multi-language Braille Translator WebApp.", lang: "TypeScript", url: "https://github.com/kiyaab/Eyeta-ET" },
-  { name: "temarlije", desc: "AI-based e-learning system with unique features.", lang: "Python", url: "https://github.com/kiyaab/temarlije" },
-  { name: "ethio-legal-aid", desc: "Legal aid platform for Ethiopian citizens.", lang: "TypeScript", url: "https://github.com/kiyaab/ethio-legal-aid" },
-  { name: "Braille-converter", desc: "Braille translator for blind communities.", lang: "Python", url: "https://github.com/kiyaab/Braille-converter" },
-  { name: "IStore", desc: "Modern phone store storefront & dashboard.", lang: "TypeScript", url: "https://github.com/kiyaab/IStore" },
-  { name: "KIYA-Portfolio", desc: "Previous iteration of the Kiya portfolio site.", lang: "TypeScript", url: "https://github.com/kiyaab/KIYA-Portfolio" },
-  { name: "My-Portfolio", desc: "Earlier personal portfolio experiment.", lang: "TypeScript", url: "https://github.com/kiyaab/My-Portfolio" },
-  { name: "DJANGO-STUDENT-REGISTRATION-SYSTEM", desc: "Student registration system built with Django.", lang: "Python", url: "https://github.com/kiyaab/DJANGO-STUDENT-REGISTRATION-SYSTEM" },
-  { name: "Hundaf Digital Equb", desc: "Digital Equb platform — members, payments, winners.", lang: "Django", url: "https://github.com/kiyaab" },
-  { name: "Fetehe AI", desc: "AI-powered legal assistant for guidance & documents.", lang: "Python", url: "https://github.com/kiyaab" },
-  { name: "Giligi Hub", desc: "Employment & recruitment platform.", lang: "TypeScript", url: "https://github.com/kiyaab" },
-  { name: "Metaferia Deneke HMS", desc: "Hotel management — reservations & analytics.", lang: "Django", url: "https://github.com/kiyaab" },
+type Repo = { name: string; desc: string; lang: string; url: string; stars: number; updated: string };
+const REPOS: Repo[] = [
+  { name: "Eyeta-ET", desc: "First Multi-language Braille Translator WebApp.", lang: "TypeScript", url: "https://github.com/kiyaab/Eyeta-ET", stars: 24, updated: "2026-01-18" },
+  { name: "temarlije", desc: "AI-based e-learning system with unique features.", lang: "Python", url: "https://github.com/kiyaab/temarlije", stars: 41, updated: "2026-02-04" },
+  { name: "ethio-legal-aid", desc: "Legal aid platform for Ethiopian citizens.", lang: "TypeScript", url: "https://github.com/kiyaab/ethio-legal-aid", stars: 18, updated: "2025-12-11" },
+  { name: "Braille-converter", desc: "Braille translator for blind communities.", lang: "Python", url: "https://github.com/kiyaab/Braille-converter", stars: 12, updated: "2025-11-02" },
+  { name: "IStore", desc: "Modern phone store storefront & dashboard.", lang: "TypeScript", url: "https://github.com/kiyaab/IStore", stars: 9, updated: "2025-10-20" },
+  { name: "KIYA-Portfolio", desc: "Previous iteration of the Kiya portfolio site.", lang: "TypeScript", url: "https://github.com/kiyaab/KIYA-Portfolio", stars: 6, updated: "2025-09-06" },
+  { name: "My-Portfolio", desc: "Earlier personal portfolio experiment.", lang: "TypeScript", url: "https://github.com/kiyaab/My-Portfolio", stars: 3, updated: "2024-12-15" },
+  { name: "DJANGO-STUDENT-REGISTRATION-SYSTEM", desc: "Student registration system built with Django.", lang: "Python", url: "https://github.com/kiyaab/DJANGO-STUDENT-REGISTRATION-SYSTEM", stars: 15, updated: "2025-08-22" },
+  { name: "Hundaf Digital Equb", desc: "Digital Equb platform — members, payments, winners.", lang: "Django", url: "https://github.com/kiyaab", stars: 22, updated: "2026-01-30" },
+  { name: "Fetehe AI", desc: "AI-powered legal assistant for guidance & documents.", lang: "Python", url: "https://github.com/kiyaab", stars: 33, updated: "2026-02-10" },
+  { name: "Giligi Hub", desc: "Employment & recruitment platform.", lang: "TypeScript", url: "https://github.com/kiyaab", stars: 14, updated: "2025-11-28" },
+  { name: "Metaferia Deneke HMS", desc: "Hotel management — reservations & analytics.", lang: "Django", url: "https://github.com/kiyaab", stars: 11, updated: "2025-10-05" },
 ];
 
 /* ----------------------------- helpers ----------------------------- */
