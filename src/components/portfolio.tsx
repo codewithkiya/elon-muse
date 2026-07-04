@@ -793,9 +793,12 @@ export function Portfolio() {
           </div>
         </section>
 
+        {/* ACHIEVEMENTS */}
+        <Achievements />
+
         {/* TESTIMONIALS */}
         <section className="py-28">
-          <SectionLabel n="07">Voices</SectionLabel>
+          <SectionLabel n="08">Voices</SectionLabel>
           <div className="grid gap-4 md:grid-cols-3">
             {TESTIMONIALS.map((t, i) => (
               <motion.figure
@@ -821,7 +824,7 @@ export function Portfolio() {
 
         {/* BLOG */}
         <section className="py-28">
-          <SectionLabel n="09">Writing</SectionLabel>
+          <SectionLabel n="10">Writing</SectionLabel>
           <div className="grid gap-px overflow-hidden rounded-md border border-border bg-border md:grid-cols-2">
             {[
               { t: "Designing Django APIs that scale", k: "Backend", d: "Patterns I lean on when shipping fast, secure REST APIs." },
