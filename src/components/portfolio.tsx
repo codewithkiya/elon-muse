@@ -222,23 +222,44 @@ const CERTIFICATES = [
 
 const EXPERIENCE = [
   {
-    when: "2024 — Now",
+    when: "2026 — Now",
     role: "Founder & CEO",
     org: "Hundaf Digital Solution",
-    body: "Leading software development projects, consulting businesses, and shipping digital products that serve thousands of users.",
+    body: "Officially launched Hundaf Digital Solution in 2026 — leading software development projects, consulting businesses, and shipping digital products that serve thousands of users.",
   },
   {
-    when: "2022 — Now",
+    when: "2025 — Now",
+    role: "Assistant Lecturer",
+    org: "STEM Entrepreneurship Club",
+    body: "Graduated from the STEM Entrepreneurship Club in 2025 and now serve as an assistant lecturer, mentoring the next cohort of student founders.",
+  },
+  {
+    when: "2024 — Now",
+    role: "Scholarship Student",
+    org: "AASTU (Addis Ababa Science & Technology University)",
+    body: "Earned a full scholarship to AASTU after winning 1st place in the National Science and Engineering Fair.",
+  },
+  {
+    when: "2023 — Now",
     role: "Full Stack Developer",
     org: "Independent / Client work",
-    body: "Building educational, business, legal, agricultural, hospitality, and accessibility platforms used across Ethiopia.",
+    body: "Started building professionally in 2023 — shipping educational, business, legal, agricultural, hospitality, and accessibility platforms used across Ethiopia.",
   },
-  {
-    when: "2021 — 2022",
-    role: "Frontend Engineer",
-    org: "Freelance",
-    body: "Crafting responsive, accessible interfaces with React, TypeScript, and modern design systems.",
-  },
+];
+
+/* Achievements & awards (verified by Kiya) */
+const ACHIEVEMENTS: { year: string; title: string; org: string; kind: "award" | "cert" | "role" }[] = [
+  { year: "2025/26", title: "Winner of the Year — MWU", org: "Madda Walabu University", kind: "award" },
+  { year: "2025", title: "1st Place — National Science & Engineering Fair", org: "Scholarship to AASTU", kind: "award" },
+  { year: "2025", title: "1st Place — MinT Startup Training & Competition", org: "Ministry of Innovation & Technology", kind: "award" },
+  { year: "2025", title: "2nd Place — FAWF & STEM Power Ethiopic Web App Competition", org: "STEM Power / FAWF", kind: "award" },
+  { year: "2025", title: "2nd Place — Oromia Job Creation Competition", org: "Oromia Region", kind: "award" },
+  { year: "2025", title: "2nd Place — STEM Entrepreneurship Club Competition", org: "STEM Club", kind: "award" },
+  { year: "2025", title: "Graduated — STEM Entrepreneurship Club", org: "STEM Club · Assistant Lecturer", kind: "role" },
+  { year: "2024/25", title: "Ethiopian 5 Million Coders — Programming Fundamentals", org: "Certified Program", kind: "cert" },
+  { year: "2024/25", title: "Ethiopian 5 Million Coders — Android Development Fundamentals", org: "Certified Program", kind: "cert" },
+  { year: "2024/25", title: "Ethiopian 5 Million Coders — Data Science Fundamentals", org: "Certified Program", kind: "cert" },
+  { year: "2024/25", title: "Ethiopian 5 Million Coders — AI Fundamentals", org: "Certified Program", kind: "cert" },
 ];
 
 const TESTIMONIALS = [
