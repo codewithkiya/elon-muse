@@ -817,63 +817,7 @@ export function Portfolio() {
         </section>
 
         {/* GITHUB */}
-        <section className="py-28">
-          <SectionLabel n="08">Open Source</SectionLabel>
-          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <h2 className="font-display text-4xl tracking-tight sm:text-5xl">
-              Open source <span className="italic text-muted-foreground">on GitHub.</span>
-            </h2>
-            <a
-              href={SOCIALS.github}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 font-mono text-xs uppercase tracking-widest transition hover:bg-foreground hover:text-background"
-            >
-              <Github className="h-3.5 w-3.5" /> @kiyaab <ArrowUpRight className="h-3.5 w-3.5" />
-            </a>
-          </div>
-
-          <div className="mb-6 grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-3">
-            <div className="bg-background p-6">
-              <div className="font-display text-4xl tracking-tight"><Counter to={REPOS.length} suffix="+" /></div>
-              <div className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Public Repositories</div>
-            </div>
-            <div className="bg-background p-6">
-              <div className="font-display text-4xl tracking-tight"><Counter to={1800} suffix="+" /></div>
-              <div className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Contributions / yr</div>
-            </div>
-            <div className="bg-background p-6">
-              <div className="font-display text-4xl tracking-tight"><Counter to={6} /></div>
-              <div className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Years coding in public</div>
-            </div>
-          </div>
-
-          <div className="grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-            {REPOS.map((r, i) => (
-              <motion.a
-                key={r.name + i}
-                href={r.url}
-                target="_blank"
-                rel="noreferrer"
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ delay: (i % 6) * 0.04 }}
-                className="group relative flex flex-col gap-3 bg-background p-6 transition hover:bg-card"
-              >
-                <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-                  <span className="flex items-center gap-2"><Github className="h-3.5 w-3.5" /> repo</span>
-                  <ArrowUpRight className="h-4 w-4 transition group-hover:rotate-45 group-hover:text-foreground" />
-                </div>
-                <h3 className="font-display text-xl leading-tight tracking-tight">{r.name}</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">{r.desc}</p>
-                <div className="mt-auto flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                  <span className="h-1.5 w-1.5 rounded-full bg-foreground" /> {r.lang}
-                </div>
-              </motion.a>
-            ))}
-          </div>
-        </section>
+        <OpenSource />
 
         {/* BLOG */}
         <section className="py-28">
