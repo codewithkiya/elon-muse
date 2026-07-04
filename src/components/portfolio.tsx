@@ -29,7 +29,17 @@ import {
   School,
   Search,
   CircleDot,
+  Star,
+  GitBranch,
+  Trophy,
+  Award,
+  Loader2,
+  Check,
+  AlertCircle,
 } from "lucide-react";
+import { z } from "zod";
+import { toast } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 import { ThemeToggle } from "./theme-toggle";
 import portraitAsset from "@/assets/kiya-portrait.png.asset.json";
 const portrait = portraitAsset.url;
