@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { registerServiceWorker } from "../lib/register-sw";
+import { InstallPrompt } from "../components/install-prompt";
 
 function NotFoundComponent() {
   return (
@@ -82,11 +83,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Portfolio of Endegena Abebe (Kiya), Full Stack Developer, Frontend Engineer, and Founder of Hundaf Digital Solution." },
       { name: "author", content: "Endegena Abebe" },
       { name: "theme-color", content: "#0a0a0a" },
+      { name: "keywords", content: "Endegena Abebe, Kiya, Full Stack Developer, Frontend Engineer, Django Developer, React Developer, Ethiopia, Hundaf Digital Solution, Bale Robe, portfolio" },
+      { name: "robots", content: "index, follow" },
       { property: "og:title", content: "Endegena Abebe (Kiya) — Full Stack Developer & Founder" },
       { property: "og:description", content: "Building software that transforms education, business, agriculture, accessibility, hospitality, and digital communities across Ethiopia." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Endegena Abebe (Kiya)" },
+      { property: "og:locale", content: "en_US" },
+      { property: "og:url", content: "/" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Endegena Abebe (Kiya) — Full Stack Developer & Founder" },
+      { name: "twitter:description", content: "Full Stack Developer, Frontend Engineer, and Founder of Hundaf Digital Solution." },
     ],
     links: [
       {
@@ -135,6 +142,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <InstallPrompt />
     </QueryClientProvider>
   );
 }

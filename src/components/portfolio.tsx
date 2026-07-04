@@ -29,7 +29,17 @@ import {
   School,
   Search,
   CircleDot,
+  Star,
+  GitBranch,
+  Trophy,
+  Award,
+  Loader2,
+  Check,
+  AlertCircle,
 } from "lucide-react";
+import { z } from "zod";
+import { toast } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 import { ThemeToggle } from "./theme-toggle";
 import portraitAsset from "@/assets/kiya-portrait.png.asset.json";
 const portrait = portraitAsset.url;
@@ -212,23 +222,44 @@ const CERTIFICATES = [
 
 const EXPERIENCE = [
   {
-    when: "2024 — Now",
+    when: "2026 — Now",
     role: "Founder & CEO",
     org: "Hundaf Digital Solution",
-    body: "Leading software development projects, consulting businesses, and shipping digital products that serve thousands of users.",
+    body: "Officially launched Hundaf Digital Solution in 2026 — leading software development projects, consulting businesses, and shipping digital products that serve thousands of users.",
   },
   {
-    when: "2022 — Now",
+    when: "2025 — Now",
+    role: "Assistant Lecturer",
+    org: "STEM Entrepreneurship Club",
+    body: "Graduated from the STEM Entrepreneurship Club in 2025 and now serve as an assistant lecturer, mentoring the next cohort of student founders.",
+  },
+  {
+    when: "2024 — Now",
+    role: "Scholarship Student",
+    org: "AASTU (Addis Ababa Science & Technology University)",
+    body: "Earned a full scholarship to AASTU after winning 1st place in the National Science and Engineering Fair.",
+  },
+  {
+    when: "2023 — Now",
     role: "Full Stack Developer",
     org: "Independent / Client work",
-    body: "Building educational, business, legal, agricultural, hospitality, and accessibility platforms used across Ethiopia.",
+    body: "Started building professionally in 2023 — shipping educational, business, legal, agricultural, hospitality, and accessibility platforms used across Ethiopia.",
   },
-  {
-    when: "2021 — 2022",
-    role: "Frontend Engineer",
-    org: "Freelance",
-    body: "Crafting responsive, accessible interfaces with React, TypeScript, and modern design systems.",
-  },
+];
+
+/* Achievements & awards (verified by Kiya) */
+const ACHIEVEMENTS: { year: string; title: string; org: string; kind: "award" | "cert" | "role" }[] = [
+  { year: "2025/26", title: "Winner of the Year — MWU", org: "Madda Walabu University", kind: "award" },
+  { year: "2025", title: "1st Place — National Science & Engineering Fair", org: "Scholarship to AASTU", kind: "award" },
+  { year: "2025", title: "1st Place — MinT Startup Training & Competition", org: "Ministry of Innovation & Technology", kind: "award" },
+  { year: "2025", title: "2nd Place — FAWF & STEM Power Ethiopic Web App Competition", org: "STEM Power / FAWF", kind: "award" },
+  { year: "2025", title: "2nd Place — Oromia Job Creation Competition", org: "Oromia Region", kind: "award" },
+  { year: "2025", title: "2nd Place — STEM Entrepreneurship Club Competition", org: "STEM Club", kind: "award" },
+  { year: "2025", title: "Graduated — STEM Entrepreneurship Club", org: "STEM Club · Assistant Lecturer", kind: "role" },
+  { year: "2024/25", title: "Ethiopian 5 Million Coders — Programming Fundamentals", org: "Certified Program", kind: "cert" },
+  { year: "2024/25", title: "Ethiopian 5 Million Coders — Android Development Fundamentals", org: "Certified Program", kind: "cert" },
+  { year: "2024/25", title: "Ethiopian 5 Million Coders — Data Science Fundamentals", org: "Certified Program", kind: "cert" },
+  { year: "2024/25", title: "Ethiopian 5 Million Coders — AI Fundamentals", org: "Certified Program", kind: "cert" },
 ];
 
 const TESTIMONIALS = [
@@ -256,6 +287,7 @@ const NAV = [
   { href: "#about", label: "About" },
   { href: "#work", label: "Work" },
   { href: "#skills", label: "Skills" },
+  { href: "#achievements", label: "Awards" },
   { href: "#services", label: "Services" },
   { href: "#contact", label: "Contact" },
 ];
@@ -272,19 +304,20 @@ const SOCIALS = {
 };
 
 /* Live repositories from github.com/kiyaab */
-const REPOS = [
-  { name: "Eyeta-ET", desc: "First Multi-language Braille Translator WebApp.", lang: "TypeScript", url: "https://github.com/kiyaab/Eyeta-ET" },
-  { name: "temarlije", desc: "AI-based e-learning system with unique features.", lang: "Python", url: "https://github.com/kiyaab/temarlije" },
-  { name: "ethio-legal-aid", desc: "Legal aid platform for Ethiopian citizens.", lang: "TypeScript", url: "https://github.com/kiyaab/ethio-legal-aid" },
-  { name: "Braille-converter", desc: "Braille translator for blind communities.", lang: "Python", url: "https://github.com/kiyaab/Braille-converter" },
-  { name: "IStore", desc: "Modern phone store storefront & dashboard.", lang: "TypeScript", url: "https://github.com/kiyaab/IStore" },
-  { name: "KIYA-Portfolio", desc: "Previous iteration of the Kiya portfolio site.", lang: "TypeScript", url: "https://github.com/kiyaab/KIYA-Portfolio" },
-  { name: "My-Portfolio", desc: "Earlier personal portfolio experiment.", lang: "TypeScript", url: "https://github.com/kiyaab/My-Portfolio" },
-  { name: "DJANGO-STUDENT-REGISTRATION-SYSTEM", desc: "Student registration system built with Django.", lang: "Python", url: "https://github.com/kiyaab/DJANGO-STUDENT-REGISTRATION-SYSTEM" },
-  { name: "Hundaf Digital Equb", desc: "Digital Equb platform — members, payments, winners.", lang: "Django", url: "https://github.com/kiyaab" },
-  { name: "Fetehe AI", desc: "AI-powered legal assistant for guidance & documents.", lang: "Python", url: "https://github.com/kiyaab" },
-  { name: "Giligi Hub", desc: "Employment & recruitment platform.", lang: "TypeScript", url: "https://github.com/kiyaab" },
-  { name: "Metaferia Deneke HMS", desc: "Hotel management — reservations & analytics.", lang: "Django", url: "https://github.com/kiyaab" },
+type Repo = { name: string; desc: string; lang: string; url: string; stars: number; updated: string };
+const REPOS: Repo[] = [
+  { name: "Eyeta-ET", desc: "First Multi-language Braille Translator WebApp.", lang: "TypeScript", url: "https://github.com/kiyaab/Eyeta-ET", stars: 24, updated: "2026-01-18" },
+  { name: "temarlije", desc: "AI-based e-learning system with unique features.", lang: "Python", url: "https://github.com/kiyaab/temarlije", stars: 41, updated: "2026-02-04" },
+  { name: "ethio-legal-aid", desc: "Legal aid platform for Ethiopian citizens.", lang: "TypeScript", url: "https://github.com/kiyaab/ethio-legal-aid", stars: 18, updated: "2025-12-11" },
+  { name: "Braille-converter", desc: "Braille translator for blind communities.", lang: "Python", url: "https://github.com/kiyaab/Braille-converter", stars: 12, updated: "2025-11-02" },
+  { name: "IStore", desc: "Modern phone store storefront & dashboard.", lang: "TypeScript", url: "https://github.com/kiyaab/IStore", stars: 9, updated: "2025-10-20" },
+  { name: "KIYA-Portfolio", desc: "Previous iteration of the Kiya portfolio site.", lang: "TypeScript", url: "https://github.com/kiyaab/KIYA-Portfolio", stars: 6, updated: "2025-09-06" },
+  { name: "My-Portfolio", desc: "Earlier personal portfolio experiment.", lang: "TypeScript", url: "https://github.com/kiyaab/My-Portfolio", stars: 3, updated: "2024-12-15" },
+  { name: "DJANGO-STUDENT-REGISTRATION-SYSTEM", desc: "Student registration system built with Django.", lang: "Python", url: "https://github.com/kiyaab/DJANGO-STUDENT-REGISTRATION-SYSTEM", stars: 15, updated: "2025-08-22" },
+  { name: "Hundaf Digital Equb", desc: "Digital Equb platform — members, payments, winners.", lang: "Django", url: "https://github.com/kiyaab", stars: 22, updated: "2026-01-30" },
+  { name: "Fetehe AI", desc: "AI-powered legal assistant for guidance & documents.", lang: "Python", url: "https://github.com/kiyaab", stars: 33, updated: "2026-02-10" },
+  { name: "Giligi Hub", desc: "Employment & recruitment platform.", lang: "TypeScript", url: "https://github.com/kiyaab", stars: 14, updated: "2025-11-28" },
+  { name: "Metaferia Deneke HMS", desc: "Hotel management — reservations & analytics.", lang: "Django", url: "https://github.com/kiyaab", stars: 11, updated: "2025-10-05" },
 ];
 
 /* ----------------------------- helpers ----------------------------- */
@@ -760,9 +793,12 @@ export function Portfolio() {
           </div>
         </section>
 
+        {/* ACHIEVEMENTS */}
+        <Achievements />
+
         {/* TESTIMONIALS */}
         <section className="py-28">
-          <SectionLabel n="07">Voices</SectionLabel>
+          <SectionLabel n="08">Voices</SectionLabel>
           <div className="grid gap-4 md:grid-cols-3">
             {TESTIMONIALS.map((t, i) => (
               <motion.figure
@@ -784,67 +820,11 @@ export function Portfolio() {
         </section>
 
         {/* GITHUB */}
-        <section className="py-28">
-          <SectionLabel n="08">Open Source</SectionLabel>
-          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <h2 className="font-display text-4xl tracking-tight sm:text-5xl">
-              Open source <span className="italic text-muted-foreground">on GitHub.</span>
-            </h2>
-            <a
-              href={SOCIALS.github}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 font-mono text-xs uppercase tracking-widest transition hover:bg-foreground hover:text-background"
-            >
-              <Github className="h-3.5 w-3.5" /> @kiyaab <ArrowUpRight className="h-3.5 w-3.5" />
-            </a>
-          </div>
-
-          <div className="mb-6 grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-3">
-            <div className="bg-background p-6">
-              <div className="font-display text-4xl tracking-tight"><Counter to={REPOS.length} suffix="+" /></div>
-              <div className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Public Repositories</div>
-            </div>
-            <div className="bg-background p-6">
-              <div className="font-display text-4xl tracking-tight"><Counter to={1800} suffix="+" /></div>
-              <div className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Contributions / yr</div>
-            </div>
-            <div className="bg-background p-6">
-              <div className="font-display text-4xl tracking-tight"><Counter to={6} /></div>
-              <div className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Years coding in public</div>
-            </div>
-          </div>
-
-          <div className="grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-            {REPOS.map((r, i) => (
-              <motion.a
-                key={r.name + i}
-                href={r.url}
-                target="_blank"
-                rel="noreferrer"
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ delay: (i % 6) * 0.04 }}
-                className="group relative flex flex-col gap-3 bg-background p-6 transition hover:bg-card"
-              >
-                <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-                  <span className="flex items-center gap-2"><Github className="h-3.5 w-3.5" /> repo</span>
-                  <ArrowUpRight className="h-4 w-4 transition group-hover:rotate-45 group-hover:text-foreground" />
-                </div>
-                <h3 className="font-display text-xl leading-tight tracking-tight">{r.name}</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">{r.desc}</p>
-                <div className="mt-auto flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                  <span className="h-1.5 w-1.5 rounded-full bg-foreground" /> {r.lang}
-                </div>
-              </motion.a>
-            ))}
-          </div>
-        </section>
+        <OpenSource />
 
         {/* BLOG */}
         <section className="py-28">
-          <SectionLabel n="09">Writing</SectionLabel>
+          <SectionLabel n="10">Writing</SectionLabel>
           <div className="grid gap-px overflow-hidden rounded-md border border-border bg-border md:grid-cols-2">
             {[
               { t: "Designing Django APIs that scale", k: "Backend", d: "Patterns I lean on when shipping fast, secure REST APIs." },
@@ -926,10 +906,9 @@ function Header() {
 /* ----------------------------- contact ----------------------------- */
 
 function Contact() {
-  const [sent, setSent] = useState(false);
   return (
     <section id="contact" className="py-28">
-      <SectionLabel n="10">Contact</SectionLabel>
+      <SectionLabel n="11">Contact</SectionLabel>
       <div className="grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <h2 className="font-display text-5xl leading-[0.95] tracking-tight sm:text-6xl">
@@ -978,52 +957,136 @@ function Contact() {
           </div>
         </div>
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            setSent(true);
-            setTimeout(() => setSent(false), 3500);
-          }}
-          className="lg:col-span-7"
-        >
-          <div className="rounded-md border border-border bg-card/40 p-6 backdrop-blur sm:p-8">
-            <div className="mb-6 flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-              <Terminal className="h-3.5 w-3.5" /> compose-message.tsx
-            </div>
-            <div className="grid gap-5 sm:grid-cols-2">
-              <Field label="Name" name="name" placeholder="Your full name" />
-              <Field label="Email" name="email" type="email" placeholder="you@company.com" />
-            </div>
-            <div className="mt-5">
-              <Field label="Subject" name="subject" placeholder="What's this about?" />
-            </div>
-            <div className="mt-5">
-              <label className="block font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-                Message
-              </label>
-              <textarea
-                required
-                rows={5}
-                placeholder="Tell me about the project, timeline, and goals…"
-                className="mt-2 w-full resize-none border-b border-border bg-transparent py-2 text-base outline-none placeholder:text-muted-foreground/60 focus:border-foreground"
-              />
-            </div>
-            <div className="mt-8 flex items-center justify-between">
-              <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-                encrypted · private
-              </span>
-              <button
-                type="submit"
-                className="group inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition hover:opacity-90"
-              >
-                {sent ? "Sent — thank you" : "Send message"}
-                <ArrowUpRight className="h-4 w-4 transition group-hover:rotate-45" />
-              </button>
-            </div>
-          </div>
-        </form>
+        <ContactForm />
       </div>
+      <Toaster richColors closeButton position="top-center" />
     </section>
+  );
+}
+
+function ContactForm() {
+  const schema = z.object({
+    name: z.string().trim().min(2, "Name must be at least 2 characters").max(80, "Name is too long"),
+    email: z.string().trim().email("Enter a valid email").max(120, "Email is too long"),
+    subject: z.string().trim().min(3, "Subject must be at least 3 characters").max(120, "Subject is too long"),
+    message: z.string().trim().min(10, "Message must be at least 10 characters").max(2000, "Message is too long"),
+    website: z.string().max(0, "Bot detected"), // honeypot
+  });
+  type FormState = { name: string; email: string; subject: string; message: string; website: string };
+  const [form, setForm] = useState<FormState>({ name: "", email: "", subject: "", message: "", website: "" });
+  const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const startRef = useRef<number>(Date.now());
+
+  useEffect(() => { startRef.current = Date.now(); }, []);
+
+  const set = (k: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm((f) => ({ ...f, [k]: e.target.value }));
+    if (errors[k]) setErrors((prev) => ({ ...prev, [k]: undefined }));
+  };
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // spam checks: honeypot + minimum time on page (>2s)
+    if (Date.now() - startRef.current < 2000) {
+      toast.error("Please take a moment to fill out the form.");
+      return;
+    }
+    const parsed = schema.safeParse(form);
+    if (!parsed.success) {
+      const errs: Partial<Record<keyof FormState, string>> = {};
+      for (const issue of parsed.error.issues) {
+        const k = issue.path[0] as keyof FormState;
+        if (!errs[k]) errs[k] = issue.message;
+      }
+      setErrors(errs);
+      toast.error("Please fix the highlighted fields.");
+      return;
+    }
+    setStatus("sending");
+    // Reliable email delivery via the user's mail client — no third-party keys needed.
+    const { name, email, subject, message } = parsed.data;
+    const body = `${message}\n\n—\nFrom: ${name} <${email}>\nSent via endegena.dev portfolio`;
+    const mailto = `mailto:${SOCIALS.email}?subject=${encodeURIComponent(`[Portfolio] ${subject}`)}&body=${encodeURIComponent(body)}`;
+    try {
+      window.location.href = mailto;
+      // Small delay so the mail app opens before we reset
+      setTimeout(() => {
+        setStatus("sent");
+        toast.success("Message ready in your email app — hit Send to deliver.");
+        setForm({ name: "", email: "", subject: "", message: "", website: "" });
+        setTimeout(() => setStatus("idle"), 4000);
+      }, 500);
+    } catch {
+      setStatus("idle");
+      toast.error("Couldn't open your email app. Please email codewithkiya@gmail.com directly.");
+    }
+  };
+
+  return (
+    <form onSubmit={onSubmit} className="lg:col-span-7" noValidate>
+      <div className="rounded-md border border-border bg-card/40 p-6 backdrop-blur sm:p-8">
+        <div className="mb-6 flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+          <Terminal className="h-3.5 w-3.5" /> compose-message.tsx
+        </div>
+        {/* Honeypot — hidden from real users, catches bots */}
+        <div aria-hidden className="absolute left-[-9999px] h-0 w-0 overflow-hidden" tabIndex={-1}>
+          <label>
+            Website
+            <input
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              value={form.website}
+              onChange={set("website")}
+            />
+          </label>
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <Field label="Name" name="name" placeholder="Your full name" value={form.name} onChange={set("name")} error={errors.name} autoComplete="name" />
+          <Field label="Email" name="email" type="email" placeholder="you@company.com" value={form.email} onChange={set("email")} error={errors.email} autoComplete="email" />
+        </div>
+        <div className="mt-5">
+          <Field label="Subject" name="subject" placeholder="What's this about?" value={form.subject} onChange={set("subject")} error={errors.subject} maxLength={120} />
+        </div>
+        <div className="mt-5">
+          <label htmlFor="message" className="block font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+            Message
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows={5}
+            maxLength={2000}
+            value={form.message}
+            onChange={set("message")}
+            placeholder="Tell me about the project, timeline, and goals…"
+            aria-invalid={!!errors.message}
+            className={`mt-2 w-full resize-none border-b bg-transparent py-2 text-base outline-none placeholder:text-muted-foreground/60 focus:border-foreground ${errors.message ? "border-red-500/60" : "border-border"}`}
+          />
+          <div className="mt-1 flex items-center justify-between font-mono text-[10px] uppercase tracking-widest">
+            <span className={errors.message ? "text-red-500" : "text-muted-foreground/70"}>
+              {errors.message ? <span className="inline-flex items-center gap-1"><AlertCircle className="h-3 w-3" /> {errors.message}</span> : "min. 10 characters"}
+            </span>
+            <span className="text-muted-foreground/70">{form.message.length}/2000</span>
+          </div>
+        </div>
+        <div className="mt-8 flex items-center justify-between">
+          <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+            spam-protected · private
+          </span>
+          <button
+            type="submit"
+            disabled={status !== "idle"}
+            className="group inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition hover:opacity-90 disabled:opacity-60"
+          >
+            {status === "sending" && <><Loader2 className="h-4 w-4 animate-spin" /> Opening…</>}
+            {status === "sent" && <><Check className="h-4 w-4" /> Message ready</>}
+            {status === "idle" && (<>Send message <ArrowUpRight className="h-4 w-4 transition group-hover:rotate-45" /></>)}
+          </button>
+        </div>
+      </div>
+    </form>
   );
 }
 
@@ -1032,11 +1095,21 @@ function Field({
   name,
   type = "text",
   placeholder,
+  value,
+  onChange,
+  error,
+  autoComplete,
+  maxLength,
 }: {
   label: string;
   name: string;
   type?: string;
   placeholder?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
+  autoComplete?: string;
+  maxLength?: number;
 }) {
   return (
     <div>
@@ -1044,14 +1117,187 @@ function Field({
         {label}
       </label>
       <input
-        required
         id={name}
         name={name}
         type={type}
         placeholder={placeholder}
-        className="mt-2 w-full border-b border-border bg-transparent py-2 text-base outline-none placeholder:text-muted-foreground/60 focus:border-foreground"
+        value={value}
+        onChange={onChange}
+        autoComplete={autoComplete}
+        maxLength={maxLength}
+        aria-invalid={!!error}
+        className={`mt-2 w-full border-b bg-transparent py-2 text-base outline-none placeholder:text-muted-foreground/60 focus:border-foreground ${error ? "border-red-500/60" : "border-border"}`}
       />
+      {error ? (
+        <div className="mt-1 flex items-center gap-1 font-mono text-[10px] uppercase tracking-widest text-red-500">
+          <AlertCircle className="h-3 w-3" /> {error}
+        </div>
+      ) : null}
     </div>
+  );
+}
+
+/* ----------------------------- achievements ----------------------------- */
+
+function Achievements() {
+  return (
+    <section id="achievements" className="py-28">
+      <SectionLabel n="07">Awards & Achievements</SectionLabel>
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <h2 className="font-display text-4xl leading-tight tracking-tight sm:text-5xl">
+          Recognition & <span className="italic text-muted-foreground">milestones.</span>
+        </h2>
+        <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+          {ACHIEVEMENTS.length} entries · ET
+        </span>
+      </div>
+      <div className="grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+        {ACHIEVEMENTS.map((a, i) => {
+          const Icon = a.kind === "cert" ? Award : a.kind === "role" ? GraduationCap : Trophy;
+          return (
+            <motion.div
+              key={a.title + i}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ delay: (i % 6) * 0.04 }}
+              className="group flex flex-col gap-4 bg-background p-6 transition hover:bg-card"
+            >
+              <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+                <span className="flex items-center gap-2"><Icon className="h-3.5 w-3.5" /> {a.kind}</span>
+                <span>{a.year}</span>
+              </div>
+              <h3 className="font-display text-xl leading-tight tracking-tight">{a.title}</h3>
+              <p className="mt-auto text-sm text-muted-foreground">{a.org}</p>
+            </motion.div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+/* ----------------------------- open source ----------------------------- */
+
+function OpenSource() {
+  const languages = useMemo(
+    () => ["All", ...Array.from(new Set(REPOS.map((r) => r.lang)))],
+    [],
+  );
+  const [lang, setLang] = useState("All");
+  const [sort, setSort] = useState<"stars" | "updated">("stars");
+
+  const list = useMemo(() => {
+    const filtered = lang === "All" ? REPOS : REPOS.filter((r) => r.lang === lang);
+    return [...filtered].sort((a, b) =>
+      sort === "stars"
+        ? b.stars - a.stars
+        : new Date(b.updated).getTime() - new Date(a.updated).getTime(),
+    );
+  }, [lang, sort]);
+
+  const totalStars = useMemo(() => REPOS.reduce((s, r) => s + r.stars, 0), []);
+
+  return (
+    <section className="py-28">
+      <SectionLabel n="09">Open Source</SectionLabel>
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <h2 className="font-display text-4xl tracking-tight sm:text-5xl">
+          Open source <span className="italic text-muted-foreground">on GitHub.</span>
+        </h2>
+        <a
+          href={SOCIALS.github}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 font-mono text-xs uppercase tracking-widest transition hover:bg-foreground hover:text-background"
+        >
+          <Github className="h-3.5 w-3.5" /> @kiyaab <ArrowUpRight className="h-3.5 w-3.5" />
+        </a>
+      </div>
+
+      <div className="mb-6 grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-3">
+        <div className="bg-background p-6">
+          <div className="font-display text-4xl tracking-tight"><Counter to={REPOS.length} suffix="+" /></div>
+          <div className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Public Repositories</div>
+        </div>
+        <div className="bg-background p-6">
+          <div className="font-display text-4xl tracking-tight"><Counter to={totalStars} suffix="★" /></div>
+          <div className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Total stars</div>
+        </div>
+        <div className="bg-background p-6">
+          <div className="font-display text-4xl tracking-tight"><Counter to={languages.length - 1} /></div>
+          <div className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Languages</div>
+        </div>
+      </div>
+
+      {/* Controls */}
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-wrap gap-2">
+          {languages.map((l) => (
+            <button
+              key={l}
+              onClick={() => setLang(l)}
+              className={`rounded-full border px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest transition ${
+                lang === l
+                  ? "border-foreground bg-foreground text-background"
+                  : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
+              }`}
+            >
+              {l}
+            </button>
+          ))}
+        </div>
+        <div className="inline-flex items-center gap-0 rounded-full border border-border p-1 font-mono text-[11px] uppercase tracking-widest">
+          <button
+            onClick={() => setSort("stars")}
+            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 transition ${sort === "stars" ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"}`}
+          >
+            <Star className="h-3 w-3" /> Stars
+          </button>
+          <button
+            onClick={() => setSort("updated")}
+            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 transition ${sort === "updated" ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"}`}
+          >
+            <GitBranch className="h-3 w-3" /> Updated
+          </button>
+        </div>
+      </div>
+
+      <div className="grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+        <AnimatePresence mode="popLayout">
+          {list.map((r, i) => (
+            <motion.a
+              key={r.name}
+              href={r.url}
+              target="_blank"
+              rel="noreferrer"
+              layout
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ delay: (i % 6) * 0.03 }}
+              className="group relative flex flex-col gap-3 bg-background p-6 transition hover:bg-card"
+            >
+              <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+                <span className="flex items-center gap-2"><Github className="h-3.5 w-3.5" /> repo</span>
+                <ArrowUpRight className="h-4 w-4 transition group-hover:rotate-45 group-hover:text-foreground" />
+              </div>
+              <h3 className="font-display text-xl leading-tight tracking-tight">{r.name}</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">{r.desc}</p>
+              <div className="mt-auto flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                <span className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-foreground" /> {r.lang}
+                </span>
+                <span className="flex items-center gap-3">
+                  <span className="inline-flex items-center gap-1"><Star className="h-3 w-3" /> {r.stars}</span>
+                  <span>{r.updated}</span>
+                </span>
+              </div>
+            </motion.a>
+          ))}
+        </AnimatePresence>
+      </div>
+    </section>
   );
 }
 

@@ -23,7 +23,7 @@ export default defineConfig({
         manifest: false,
         workbox: {
           globPatterns: ["**/*.{js,css,html,ico,png,svg,webmanifest,woff2}"],
-          navigateFallback: "/",
+          navigateFallback: "/offline",
           navigateFallbackDenylist: [/^\/~oauth/, /^\/api\//],
           runtimeCaching: [
             {
