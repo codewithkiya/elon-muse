@@ -41,8 +41,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeToggle } from "./theme-toggle";
-import portraitAsset from "@/assets/kiya-portrait.png.asset.json";
-const portrait = portraitAsset.url;
+import portrait from "@/assets/kiya-portrait.png";
 
 /* Brand icons (not in lucide) */
 const brandIcon = (path: React.ReactNode) =>
@@ -1180,23 +1179,82 @@ function Achievements() {
 /* ----------------------------- open source ----------------------------- */
 
 function OpenSource() {
-  const languages = useMemo(
-    () => ["All", ...Array.from(new Set(REPOS.map((r) => r.lang)))],
-    [],
-  );
+  const [repos, setRepos] = useState<Repo[]>(REPOS);
   const [lang, setLang] = useState("All");
   const [sort, setSort] = useState<"stars" | "updated">("stars");
+  const [visible, setVisible] = useState(6);
+  const [live, setLive] = useState(false);
+
+  useEffect(() => {
+    const CACHE_KEY = "gh:kiyaab:repos:v1";
+    const TTL = 60 * 60 * 1000; // 1 hour
+    const apply = (data: Repo[]) => {
+      if (data.length) {
+        setRepos(data);
+        setLive(true);
+      }
+    };
+    try {
+      const raw = typeof window !== "undefined" ? localStorage.getItem(CACHE_KEY) : null;
+      if (raw) {
+        const { at, data } = JSON.parse(raw) as { at: number; data: Repo[] };
+        apply(data);
+        if (Date.now() - at < TTL) return;
+      }
+    } catch { /* ignore */ }
+
+    (async () => {
+      try {
+        const all: any[] = [];
+        for (let page = 1; page <= 4; page++) {
+          const res = await fetch(
+            `https://api.github.com/users/kiyaab/repos?per_page=100&page=${page}&sort=updated`,
+            { headers: { Accept: "application/vnd.github+json" } },
+          );
+          if (!res.ok) break;
+          const batch = await res.json();
+          if (!Array.isArray(batch) || batch.length === 0) break;
+          all.push(...batch);
+          if (batch.length < 100) break;
+        }
+        const mapped: Repo[] = all
+          .filter((r) => !r.fork)
+          .map((r) => ({
+            name: r.name,
+            desc: r.description || "No description provided.",
+            lang: r.language || "Other",
+            url: r.html_url,
+            stars: r.stargazers_count ?? 0,
+            updated: (r.pushed_at || r.updated_at || "").slice(0, 10),
+          }));
+        if (mapped.length) {
+          apply(mapped);
+          try {
+            localStorage.setItem(CACHE_KEY, JSON.stringify({ at: Date.now(), data: mapped }));
+          } catch { /* ignore */ }
+        }
+      } catch { /* offline / rate-limited — keep static REPOS */ }
+    })();
+  }, []);
+
+  const languages = useMemo(
+    () => ["All", ...Array.from(new Set(repos.map((r) => r.lang)))],
+    [repos],
+  );
 
   const list = useMemo(() => {
-    const filtered = lang === "All" ? REPOS : REPOS.filter((r) => r.lang === lang);
+    const filtered = lang === "All" ? repos : repos.filter((r) => r.lang === lang);
     return [...filtered].sort((a, b) =>
       sort === "stars"
         ? b.stars - a.stars
         : new Date(b.updated).getTime() - new Date(a.updated).getTime(),
     );
-  }, [lang, sort]);
+  }, [lang, sort, repos]);
 
-  const totalStars = useMemo(() => REPOS.reduce((s, r) => s + r.stars, 0), []);
+  useEffect(() => setVisible(6), [lang, sort]);
+
+  const totalStars = useMemo(() => repos.reduce((s, r) => s + r.stars, 0), [repos]);
+  const shown = list.slice(0, visible);
 
   return (
     <section className="py-28">
@@ -1217,8 +1275,10 @@ function OpenSource() {
 
       <div className="mb-6 grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-3">
         <div className="bg-background p-6">
-          <div className="font-display text-4xl tracking-tight"><Counter to={REPOS.length} suffix="+" /></div>
-          <div className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">Public Repositories</div>
+          <div className="font-display text-4xl tracking-tight"><Counter to={repos.length} suffix="+" /></div>
+          <div className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+            {live ? "Live repositories" : "Public repositories"}
+          </div>
         </div>
         <div className="bg-background p-6">
           <div className="font-display text-4xl tracking-tight"><Counter to={totalStars} suffix="★" /></div>
@@ -1265,7 +1325,7 @@ function OpenSource() {
 
       <div className="grid gap-px overflow-hidden rounded-md border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
         <AnimatePresence mode="popLayout">
-          {list.map((r, i) => (
+          {shown.map((r, i) => (
             <motion.a
               key={r.name}
               href={r.url}
@@ -1297,6 +1357,16 @@ function OpenSource() {
           ))}
         </AnimatePresence>
       </div>
+      {visible < list.length && (
+        <div className="mt-8 flex justify-center">
+          <button
+            onClick={() => setVisible((v) => v + 6)}
+            className="rounded-full border border-border px-5 py-2.5 font-mono text-[11px] uppercase tracking-widest transition hover:bg-foreground hover:text-background"
+          >
+            Load more ({list.length - visible})
+          </button>
+        </div>
+      )}
     </section>
   );
 }
