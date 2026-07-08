@@ -41,8 +41,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeToggle } from "./theme-toggle";
-import portraitAsset from "@/assets/kiya-portrait.png.asset.json";
-const portrait = portraitAsset.url;
+import portrait from "@/assets/kiya-portrait.png";
 
 /* Brand icons (not in lucide) */
 const brandIcon = (path: React.ReactNode) =>
