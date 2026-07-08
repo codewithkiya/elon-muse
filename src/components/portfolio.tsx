@@ -1332,17 +1332,28 @@ function OpenSource() {
               target="_blank"
               rel="noreferrer"
               layout
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ delay: (i % 6) * 0.03 }}
-              className="group relative flex flex-col gap-3 bg-background p-6 transition hover:bg-card"
+              initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: -12, filter: "blur(6px)" }}
+              transition={{ duration: 0.55, delay: (i % 6) * 0.05, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -4 }}
+              className="group relative flex flex-col gap-3 overflow-hidden bg-background p-6 transition-colors duration-500 hover:bg-card"
             >
+              {/* luxury shimmer sweep */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -translate-x-full bg-[linear-gradient(115deg,transparent_35%,color-mix(in_oklab,var(--foreground)_8%,transparent)_50%,transparent_65%)] transition-transform duration-[1400ms] ease-out group-hover:translate-x-full"
+              />
+              {/* hairline accent */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-x-6 top-0 h-px origin-left scale-x-0 bg-foreground/60 transition-transform duration-700 ease-out group-hover:scale-x-100"
+              />
               <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
                 <span className="flex items-center gap-2"><Github className="h-3.5 w-3.5" /> repo</span>
-                <ArrowUpRight className="h-4 w-4 transition group-hover:rotate-45 group-hover:text-foreground" />
+                <ArrowUpRight className="h-4 w-4 transition-transform duration-500 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:rotate-45 group-hover:text-foreground" />
               </div>
-              <h3 className="font-display text-xl leading-tight tracking-tight">{r.name}</h3>
+              <h3 className="font-display text-xl leading-tight tracking-tight transition-colors duration-300 group-hover:italic">{r.name}</h3>
               <p className="text-sm leading-relaxed text-muted-foreground">{r.desc}</p>
               <div className="mt-auto flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
                 <span className="flex items-center gap-2">
@@ -1357,17 +1368,57 @@ function OpenSource() {
           ))}
         </AnimatePresence>
       </div>
-      {visible < list.length && (
-        <div className="mt-8 flex justify-center">
-          <button
-            onClick={() => setVisible((v) => v + 6)}
-            className="rounded-full border border-border px-5 py-2.5 font-mono text-[11px] uppercase tracking-widest transition hover:bg-foreground hover:text-background"
-          >
-            Load more ({list.length - visible})
-          </button>
-        </div>
-      )}
+      {/* infinite scroll sentinel */}
+      <InfiniteSentinel
+        hasMore={visible < list.length}
+        remaining={list.length - visible}
+        onLoad={() => setVisible((v) => v + 6)}
+      />
     </section>
+  );
+}
+
+function InfiniteSentinel({
+  hasMore,
+  remaining,
+  onLoad,
+}: {
+  hasMore: boolean;
+  remaining: number;
+  onLoad: () => void;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (!hasMore || !ref.current) return;
+    const el = ref.current;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) onLoad();
+      },
+      { rootMargin: "400px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [hasMore, onLoad]);
+
+  if (!hasMore) {
+    return (
+      <div className="mt-10 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+        — end of feed —
+      </div>
+    );
+  }
+
+  return (
+    <div ref={ref} className="mt-10 flex flex-col items-center gap-3">
+      <div className="relative h-6 w-6">
+        <span className="absolute inset-0 animate-ping rounded-full bg-foreground/20" />
+        <span className="absolute inset-1 rounded-full bg-foreground" />
+      </div>
+      <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+        loading {remaining} more…
+      </div>
+    </div>
   );
 }
 
