@@ -66,7 +66,7 @@ const TITLES = [
   "Frontend Engineer",
   "Django Developer",
   "Software Architect",
-  "Tech Entrepreneur",
+  "Digital Manager",
 ];
 
 const STATS = [
@@ -222,9 +222,9 @@ const CERTIFICATES = [
 const EXPERIENCE = [
   {
     when: "2026 — Now",
-    role: "Founder & CEO",
+    role: "Developer & Digital Manager",
     org: "Hundaf Digital Solution",
-    body: "Officially launched Hundaf Digital Solution in 2026 — leading software development projects, consulting businesses, and shipping digital products that serve thousands of users.",
+    body: "Developer and digital manager at Hundaf Digital Solution — building software products, managing client projects, and supporting digital transformation for thousands of users.",
   },
   {
     when: "2025 — Now",
@@ -270,7 +270,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "Rare to find a founder who can also write production code at this level. The Equb system just works.",
+      "Rare to find a developer who can also manage digital products at this level. The Equb system just works.",
     name: "Daniel M.",
     role: "Community Organizer",
   },
@@ -496,7 +496,7 @@ export function Portfolio() {
                 transition={{ delay: 1.3 }}
                 className="mt-8 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg"
               >
-                Founder of <span className="text-foreground">Hundaf Digital Solution</span>. Full Stack
+                Developer & Digital Manager at <span className="text-foreground">Hundaf Digital Solution</span>. Full Stack
                 Developer and Frontend Engineer building software that transforms education, business,
                 agriculture, accessibility, hospitality, and digital communities across Ethiopia.
               </motion.p>
@@ -596,7 +596,7 @@ export function Portfolio() {
                   positively impacts communities across Ethiopia and Africa.
                 </p>
                 <p>
-                  As the founder of <span className="text-foreground">Hundaf Digital Solution</span>, I
+                  As a developer and digital manager at <span className="text-foreground">Hundaf Digital Solution</span>, I
                   ship projects that improve education, accessibility, legal awareness, hospitality,
                   agriculture, and digital business operations.
                 </p>
@@ -829,7 +829,7 @@ export function Portfolio() {
               { t: "Designing Django APIs that scale", k: "Backend", d: "Patterns I lean on when shipping fast, secure REST APIs." },
               { t: "Frontend craft: composition over configuration", k: "Frontend", d: "Building a UI system that the whole team can extend without friction." },
               { t: "AI as a product layer, not a feature", k: "AI", d: "When and how to wire LLMs into real workflows that ship value." },
-              { t: "Lessons from founding Hundaf", k: "Founder", d: "What I learned shipping nine products to thousands of users." },
+              { t: "Lessons from building at Hundaf", k: "Team", d: "What I learned shipping nine products to thousands of users." },
             ].map((p) => (
               <a key={p.t} href="#" className="group flex flex-col gap-5 bg-background p-7 transition hover:bg-card">
                 <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
@@ -914,7 +914,7 @@ function Contact() {
             Let's build something <span className="italic text-muted-foreground">that matters.</span>
           </h2>
           <p className="mt-6 max-w-md text-muted-foreground">
-            Open to founder collaborations, product engineering roles, and ambitious client projects.
+            Open to product engineering roles, digital management opportunities, and ambitious client projects.
             Reach out — I reply within a day.
           </p>
           <div className="mt-10 space-y-3 font-mono text-sm">

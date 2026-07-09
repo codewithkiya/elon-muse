@@ -4,17 +4,17 @@ import { Portfolio } from "@/components/portfolio";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Endegena Abebe (Kiya) — Full Stack Developer & Founder" },
-      { name: "description", content: "Full Stack Developer, Frontend Engineer, and Founder of Hundaf Digital Solution. Building software that transforms communities across Ethiopia." },
-      { property: "og:title", content: "Endegena Abebe (Kiya) — Full Stack Developer & Founder" },
-      { property: "og:description", content: "Full Stack Developer, Frontend Engineer, and Founder of Hundaf Digital Solution." },
+      { title: "Endegena Abebe (Kiya) — Full Stack Developer & Digital Manager" },
+      { name: "description", content: "Full Stack Developer, Frontend Engineer, and Digital Manager at Hundaf Digital Solution. Building software that transforms communities across Ethiopia." },
+      { property: "og:title", content: "Endegena Abebe (Kiya) — Full Stack Developer & Digital Manager" },
+      { property: "og:description", content: "Full Stack Developer, Frontend Engineer, and Digital Manager at Hundaf Digital Solution." },
       { property: "og:type", content: "profile" },
       { property: "og:url", content: "/" },
       { property: "profile:first_name", content: "Endegena" },
       { property: "profile:last_name", content: "Abebe" },
       { property: "profile:username", content: "kiyaab" },
-      { name: "twitter:title", content: "Endegena Abebe (Kiya) — Full Stack Developer & Founder" },
-      { name: "twitter:description", content: "Full Stack Developer, Frontend Engineer, and Founder of Hundaf Digital Solution." },
+      { name: "twitter:title", content: "Endegena Abebe (Kiya) — Full Stack Developer & Digital Manager" },
+      { name: "twitter:description", content: "Full Stack Developer, Frontend Engineer, and Digital Manager at Hundaf Digital Solution." },
     ],
     links: [{ rel: "canonical", href: "/" }],
     scripts: [
@@ -25,7 +25,7 @@ export const Route = createFileRoute("/")({
           "@type": "Person",
           name: "Endegena Abebe",
           alternateName: "Kiya",
-          jobTitle: "Full Stack Developer & Founder",
+          jobTitle: "Full Stack Developer & Digital Manager",
           worksFor: { "@type": "Organization", name: "Hundaf Digital Solution" },
           url: "/",
           sameAs: [
