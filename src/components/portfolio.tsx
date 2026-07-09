@@ -66,7 +66,7 @@ const TITLES = [
   "Frontend Engineer",
   "Django Developer",
   "Software Architect",
-  "Tech Entrepreneur",
+  "Digital Manager",
 ];
 
 const STATS = [
@@ -222,9 +222,9 @@ const CERTIFICATES = [
 const EXPERIENCE = [
   {
     when: "2026 — Now",
-    role: "Founder & CEO",
+    role: "Developer & Digital Manager",
     org: "Hundaf Digital Solution",
-    body: "Officially launched Hundaf Digital Solution in 2026 — leading software development projects, consulting businesses, and shipping digital products that serve thousands of users.",
+    body: "Developer and digital manager at Hundaf Digital Solution — building software products, managing client projects, and supporting digital transformation for thousands of users.",
   },
   {
     when: "2025 — Now",
@@ -270,7 +270,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "Rare to find a founder who can also write production code at this level. The Equb system just works.",
+      "Rare to find a developer who can also manage digital products at this level. The Equb system just works.",
     name: "Daniel M.",
     role: "Community Organizer",
   },
