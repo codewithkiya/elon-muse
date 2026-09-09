@@ -191,11 +191,11 @@ function Hero() {
     return () => node.removeEventListener("mousemove", move);
   }, []);
   return (
-    <section ref={hero} id="home" className="relative flex min-h-[92svh] items-end overflow-hidden border-b border-border pt-28 [background:radial-gradient(700px_circle_at_var(--mx,72%)_var(--my,38%),var(--glow),transparent_42%)]">
+    <section ref={hero} id="home" className="relative flex min-h-[720px] h-[min(92svh,980px)] items-center overflow-hidden border-b border-border pt-24 [background:radial-gradient(700px_circle_at_var(--mx,72%)_var(--my,38%),var(--glow),transparent_42%)]">
       <div className="grid-bg pointer-events-none absolute inset-0 opacity-50 [mask-image:linear-gradient(to_bottom,black,transparent_90%)]" />
       <div className="pointer-events-none absolute left-[8%] top-[18%] h-px w-24 bg-foreground/20" />
       <div className="pointer-events-none absolute right-[12%] top-[22%] h-1.5 w-1.5 animate-pulse rounded-full bg-foreground/50" />
-      <div className="relative mx-auto grid w-full max-w-[1520px] items-end gap-10 px-5 pb-12 md:px-8 md:pb-16 lg:grid-cols-[1fr_340px]">
+      <div className="relative mx-auto grid w-full max-w-[1520px] items-center gap-10 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-[1fr_340px]">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
           <div className="mb-7 flex flex-wrap items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-muted-foreground sm:text-xs">
             <span>SOFTWARE DEVELOPER</span><span>·</span><span>BUILDER</span><span>·</span><span>CREATOR</span>
@@ -216,7 +216,7 @@ function Hero() {
         <motion.div initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.15 }} className="hidden lg:block">
           <div className="relative mx-auto aspect-[4/5] max-w-[320px] overflow-hidden border border-border bg-surface">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,var(--glow),transparent_45%)]" />
-            <img src={portrait} alt="Endegena Abebe, full-stack developer" className="relative h-full w-full object-cover object-top grayscale contrast-110" />
+            <img src={portrait} alt="Endegena Abebe, full-stack developer" className="relative h-full w-full object-cover object-top brightness-125 grayscale contrast-110" />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/40 to-transparent p-5 pt-20">
               <span className="font-mono text-[10px] tracking-[0.18em]">ENDGENA ABEBE / KIYA</span>
             </div>
