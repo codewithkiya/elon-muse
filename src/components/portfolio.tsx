@@ -99,6 +99,37 @@ function CustomCursor() {
   );
 }
 
+function LoadingIntro() {
+  const [visible, setVisible] = useState(true);
+  const reduce = useReducedMotion();
+  useEffect(() => {
+    const timer = window.setTimeout(() => setVisible(false), reduce ? 250 : 1350);
+    return () => window.clearTimeout(timer);
+  }, [reduce]);
+  if (!visible) return null;
+  return (
+    <motion.div
+      className="fixed inset-0 z-[120] grid place-items-center bg-background"
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.35 }}
+    >
+      <motion.div
+        initial={reduce ? false : { opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="text-center"
+      >
+        <img src={logoAsset.url} alt="Kiya.dev" className="mx-auto h-40 w-40 object-cover sm:h-52 sm:w-52" />
+        <div className="mx-auto mt-7 h-px w-36 overflow-hidden bg-border">
+          <motion.div initial={{ x: "-100%" }} animate={{ x: "100%" }} transition={{ duration: 1, ease: "easeInOut" }} className="h-full w-full bg-foreground" />
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -112,9 +143,8 @@ function Navbar() {
     <>
       <header className={cn("fixed inset-x-0 top-0 z-50 transition-all duration-300", scrolled && "border-b border-border bg-background/80 backdrop-blur-xl")}>
         <nav className="mx-auto flex h-16 max-w-[1520px] items-center justify-between px-5 md:px-8" aria-label="Main navigation">
-          <a href="#home" className="flex items-center gap-3" aria-label="Kiya.dev home">
-            <img src={logoAsset.url} alt="Kiya.dev logo" className="h-8 w-8 object-cover" />
-            <span className="font-mono text-xs font-semibold tracking-[0.18em]">KIYA.DEV</span>
+          <a href="#home" className="font-mono text-xs font-semibold tracking-[0.18em]" aria-label="Kiya.dev home">
+            KIYA.DEV
           </a>
           <div className="hidden items-center gap-7 lg:flex">
             {nav.filter((item) => item.label !== "Services").map((item) => (
@@ -447,6 +477,7 @@ function Footer() {
 export function Portfolio() {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <LoadingIntro />
       <CustomCursor />
       <Navbar />
       <main>
