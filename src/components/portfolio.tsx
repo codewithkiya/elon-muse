@@ -7,8 +7,6 @@ import {
   Check,
   Code2,
   ExternalLink,
-  Github,
-  Linkedin,
   Mail,
   Menu,
   Send,
@@ -398,7 +396,7 @@ function GitHubSection() {
       <div className="mx-auto max-w-[1520px] px-5 md:px-8">
         <SectionIntro index="08" label="OPEN SOURCE & CODE" title="The work continues in public." />
         <Reveal className="border border-border bg-background p-5 md:p-8">
-          <div className="flex flex-wrap items-center justify-between gap-4"><div><div className="font-mono text-[10px] text-muted-foreground">GITHUB / KIYAAB</div><div className="mt-2 text-2xl font-semibold">{repos.length || "10"}+ public repositories</div></div><Button asChild variant="outline" className="rounded-full bg-transparent"><a href={socials.github} target="_blank" rel="noreferrer"><Github /> View profile <ArrowUpRight /></a></Button></div>
+          <div className="flex flex-wrap items-center justify-between gap-4"><div><div className="font-mono text-[10px] text-muted-foreground">GITHUB / KIYAAB</div><div className="mt-2 text-2xl font-semibold">{repos.length || "10"}+ public repositories</div></div><Button asChild variant="outline" className="rounded-full bg-transparent"><a href={socials.github} target="_blank" rel="noreferrer"><Code2 /> View profile <ArrowUpRight /></a></Button></div>
           <div className="mt-8 grid grid-flow-col grid-rows-7 gap-1 overflow-hidden" aria-label="Simulated contribution activity">{contribution.map((level, index) => <span key={index} className={cn("h-2.5 w-2.5 rounded-[2px]", level === 0 ? "bg-muted" : level === 1 ? "bg-foreground/20" : level === 2 ? "bg-foreground/40" : level === 3 ? "bg-foreground/65" : "bg-foreground")} />)}</div>
         </Reveal>
         <div className="mt-6 flex flex-wrap items-center justify-between gap-3"><div className="flex flex-wrap gap-2">{languages.slice(0, 6).map((item) => <Button key={item} size="sm" variant={language === item ? "default" : "outline"} className="rounded-full bg-transparent" onClick={() => { setLanguage(item); setShown(6); }}>{item}</Button>)}</div><div className="flex gap-2"><Button size="sm" variant={sort === "updated" ? "default" : "outline"} onClick={() => setSort("updated")}>Updated</Button><Button size="sm" variant={sort === "stars" ? "default" : "outline"} onClick={() => setSort("stars")}>Stars</Button></div></div>
@@ -428,9 +426,9 @@ function Contact() {
           </div>
           <div className="mt-16 grid grid-cols-2 gap-px border border-border bg-border md:grid-cols-4">
             {[
-              ["GitHub", socials.github, Github], ["LinkedIn", socials.linkedin, Linkedin], ["Telegram", socials.telegram, Send], ["Email", `mailto:${socials.email}`, Mail],
+              ["GitHub", socials.github, Code2], ["LinkedIn", socials.linkedin, ExternalLink], ["Telegram", socials.telegram, Send], ["Email", `mailto:${socials.email}`, Mail],
             ].map(([label, href, Icon]) => {
-              const SocialIcon = Icon as typeof Github;
+              const SocialIcon = Icon as typeof Code2;
               return <a key={label as string} href={href as string} target={(href as string).startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="group flex items-center justify-between bg-background p-5 text-sm transition-colors hover:bg-surface"><span className="flex items-center gap-2"><SocialIcon className="h-4 w-4" />{label as string}</span><ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></a>;
             })}
           </div>
