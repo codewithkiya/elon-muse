@@ -14,13 +14,13 @@ export const Route = createFileRoute("/offline")({
 function OfflinePage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="pointer-events-none fixed inset-0 -z-10 dot-grid opacity-70" />
+      <div className="pointer-events-none fixed inset-0 -z-10 grid-bg opacity-70" />
       <main className="mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center px-6 text-center">
         <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
           status · offline
         </div>
-        <h1 className="mt-6 font-display text-5xl leading-tight tracking-tight sm:text-6xl">
-          You're <span className="italic text-muted-foreground">offline.</span>
+        <h1 className="mt-6 text-5xl font-bold leading-tight tracking-tight sm:text-6xl">
+          You're <span className="text-muted-foreground">offline.</span>
         </h1>
         <p className="mt-4 max-w-md text-muted-foreground">
           The network's unavailable right now. Previously visited pages of this portfolio
