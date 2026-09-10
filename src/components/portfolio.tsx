@@ -154,6 +154,7 @@ function Navbar() {
             ))}
           </div>
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Button asChild size="sm" className="hidden rounded-full sm:inline-flex">
               <a href={`mailto:${socials.email}`}>Let's Talk <ArrowUpRight /></a>
             </Button>
