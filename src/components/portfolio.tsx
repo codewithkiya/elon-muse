@@ -123,7 +123,7 @@ function LoadingIntro() {
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className="text-center"
       >
-        <img src={logoAsset.url} alt="Kiya.dev" className="mx-auto h-40 w-40 object-cover sm:h-52 sm:w-52" />
+        <img src={logo} alt="Kiya.dev" className="mx-auto h-40 w-40 object-cover sm:h-52 sm:w-52" />
         <div className="mx-auto mt-7 h-px w-36 overflow-hidden bg-border">
           <motion.div initial={{ x: "-100%" }} animate={{ x: "100%" }} transition={{ duration: 1, ease: "easeInOut" }} className="h-full w-full bg-foreground" />
         </div>
