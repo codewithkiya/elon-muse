@@ -13,8 +13,10 @@ import {
   Star,
   X,
 } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import logoAsset from "@/assets/kiya-logo.jpg.asset.json";
+import { ThemeToggle } from "@/components/theme-toggle";
+import logo from "@/assets/kiya-logo.jpg";
 import portrait from "@/assets/kiya-portrait.png";
 import { achievements, experience } from "@/data/experience";
 import { architectureStack, nav, principles, profile, socials, stats, technologies } from "@/data/profile";
@@ -121,7 +123,7 @@ function LoadingIntro() {
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className="text-center"
       >
-        <img src={logoAsset.url} alt="Kiya.dev" className="mx-auto h-40 w-40 object-cover sm:h-52 sm:w-52" />
+        <img src={logo} alt="Kiya.dev" className="mx-auto h-40 w-40 object-cover sm:h-52 sm:w-52" />
         <div className="mx-auto mt-7 h-px w-36 overflow-hidden bg-border">
           <motion.div initial={{ x: "-100%" }} animate={{ x: "100%" }} transition={{ duration: 1, ease: "easeInOut" }} className="h-full w-full bg-foreground" />
         </div>
@@ -152,6 +154,7 @@ function Navbar() {
             ))}
           </div>
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Button asChild size="sm" className="hidden rounded-full sm:inline-flex">
               <a href={`mailto:${socials.email}`}>Let's Talk <ArrowUpRight /></a>
             </Button>
@@ -274,44 +277,28 @@ function About() {
   );
 }
 
-function ProjectVisual({ index, name }: { index: number; name: string }) {
-  return (
-    <div className="relative aspect-[16/10] overflow-hidden border border-border bg-surface transition-transform duration-500 group-hover:scale-[1.015]">
-      <div className="grid-bg absolute inset-0 opacity-30" />
-      <div className="absolute inset-6 border border-border bg-background/90 shadow-2xl md:inset-10">
-        <div className="flex h-9 items-center gap-1.5 border-b border-border px-3"><span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/50" /><span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/30" /><span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/20" /></div>
-        <div className="grid h-[calc(100%-2.25rem)] grid-cols-[1fr_2.3fr]">
-          <div className="border-r border-border p-3 md:p-5"><div className="font-mono text-[8px] text-muted-foreground">PROJECT / 0{index + 1}</div><div className="mt-5 h-1 w-12 bg-foreground/70" /><div className="mt-2 h-1 w-8 bg-muted-foreground/30" /></div>
-          <div className="flex flex-col justify-between p-4 md:p-7"><div><div className="h-1.5 w-1/2 bg-muted-foreground/30" /><div className="mt-3 h-1.5 w-3/4 bg-muted-foreground/20" /></div><div className="text-[clamp(1rem,2.5vw,2.5rem)] font-semibold tracking-[-0.04em] text-foreground/90">{name}</div></div>
-        </div>
-      </div>
-      <div className="absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-foreground/5 blur-3xl" />
-    </div>
-  );
-}
-
 function Projects() {
   return (
     <section id="projects" className="border-y border-border bg-surface/35 py-24 md:py-36">
       <div className="mx-auto max-w-[1520px] px-5 md:px-8">
         <SectionIntro index="02" label="SELECTED WORK" title="Products, experiments, and systems built to be used." copy="A focused selection of multi-tenant platforms, AI tools, accessibility products, and operational software." />
-        <div className="space-y-24 md:space-y-36">
-          {projects.slice(0, 4).map((project, index) => (
+        <div className="divide-y divide-border border-y border-border">
+          {projects.map((project, index) => (
             <Reveal key={project.slug}>
-              <article data-cursor="view" className="group grid gap-8 md:grid-cols-[minmax(0,1.65fr)_minmax(300px,1fr)] md:items-start">
-                <ProjectVisual index={index} name={project.name} />
-                <div className="flex h-full flex-col border-t border-border pt-5 transition-colors group-hover:border-foreground/60">
-                  <div className="flex items-center justify-between font-mono text-[10px] text-muted-foreground"><span>0{index + 1} — {project.category.toUpperCase()}</span><ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" /></div>
-                  <h3 className="mt-8 text-4xl font-semibold tracking-[-0.04em] md:text-5xl">{project.name}</h3>
-                  <p className="mt-5 text-base leading-7 text-muted-foreground">{project.short}</p>
-                  <div className="mt-8 flex flex-wrap gap-2">{project.tech.map((tech) => <span key={tech} className="border border-border px-2.5 py-1 font-mono text-[10px] text-muted-foreground">{tech}</span>)}</div>
-                  <div className="mt-auto flex flex-wrap gap-5 pt-10 text-xs font-medium">
-                    {project.github && <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-1 hover:text-muted-foreground">GitHub <ArrowUpRight className="h-3 w-3" /></a>}
-                    {project.demo && <a href={project.demo} target="_blank" rel="noreferrer" className="flex items-center gap-1 hover:text-muted-foreground">Live Demo <ArrowUpRight className="h-3 w-3" /></a>}
-                    <a href={`#case-${project.slug}`} className="flex items-center gap-1 hover:text-muted-foreground">View Case Study <ArrowRight className="h-3 w-3" /></a>
-                  </div>
+              <Link
+                to="/projects/$slug"
+                params={{ slug: project.slug }}
+                data-cursor="view"
+                className="group grid gap-4 py-8 transition-colors hover:bg-surface md:grid-cols-[70px_minmax(0,1fr)_minmax(0,1.2fr)_40px] md:items-center md:px-4"
+              >
+                <span className="font-mono text-xs text-muted-foreground">0{index + 1}</span>
+                <div>
+                  <h3 className="text-2xl font-semibold tracking-[-0.03em] md:text-3xl">{project.name}</h3>
+                  <div className="mt-2 font-mono text-[10px] tracking-[0.14em] text-muted-foreground">{project.category.toUpperCase()}</div>
                 </div>
-              </article>
+                <p className="text-sm leading-7 text-muted-foreground">{project.short}</p>
+                <ArrowUpRight className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-foreground md:justify-self-end" />
+              </Link>
             </Reveal>
           ))}
         </div>
