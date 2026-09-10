@@ -87,11 +87,6 @@
   color-scheme: light;
 }
 
-:root.light html,
-html.light {
-  color-scheme: light;
-}
-
 @layer base {
   * {
     border-color: var(--color-border);
