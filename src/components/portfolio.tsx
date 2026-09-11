@@ -152,6 +152,7 @@ function Navbar() {
             {nav.filter((item) => item.label !== "Services").map((item) => (
               <a key={item.href} href={item.href} className="text-xs text-muted-foreground transition-colors hover:text-foreground">{item.label}</a>
             ))}
+            <Link to="/blog" className="text-xs text-muted-foreground transition-colors hover:text-foreground">Blog</Link>
           </div>
           <div className="flex items-center gap-2">
             <ThemeToggle />
