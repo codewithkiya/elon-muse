@@ -152,6 +152,7 @@ function Navbar() {
             {nav.filter((item) => item.label !== "Services").map((item) => (
               <a key={item.href} href={item.href} className="text-xs text-muted-foreground transition-colors hover:text-foreground">{item.label}</a>
             ))}
+            <Link to="/blog" className="text-xs text-muted-foreground transition-colors hover:text-foreground">Blog</Link>
           </div>
           <div className="flex items-center gap-2">
             <ThemeToggle />
@@ -172,6 +173,7 @@ function Navbar() {
             {nav.map((item, index) => (
               <motion.a key={item.href} href={item.href} onClick={() => setOpen(false)} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.04 }} className="border-b border-border py-4 text-4xl font-semibold">{item.label}</motion.a>
             ))}
+            <Link to="/blog" onClick={() => setOpen(false)} className="border-b border-border py-4 text-4xl font-semibold">Blog</Link>
           </div>
           <a href={`mailto:${socials.email}`} className="flex items-center justify-between border-t border-border py-5 text-sm">Start a conversation <ArrowUpRight className="h-4 w-4" /></a>
         </motion.div>
