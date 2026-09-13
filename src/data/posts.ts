@@ -56,14 +56,14 @@ export const posts: Post[] = [
   },
   {
     slug: "developer-and-digital-manager",
-    title: "Being a developer and a digital manager at once",
+    title: "Being a founder, developer and digital manager at once",
     date: "2026-02-18",
     readingTime: "4 min read",
     category: "Career",
     excerpt:
-      "Writing the code and owning the digital direction changes how you make technical decisions — usually for the better.",
+      "Founding the company, writing the code and owning the digital direction changes how you make technical decisions — usually for the better.",
     body: [
-      "At Hundaf Digital Solution I write the code and I am responsible for the digital direction of the products. Those two roles argue with each other constantly, and that argument is useful.",
+      "I founded Hundaf Digital Solution, write the code and remain responsible for the digital direction of our products. Those responsibilities argue with each other constantly, and that argument is useful.",
       "As a developer I want the elegant abstraction. As the person answerable for delivery, I want the version that ships this month and can be replaced later without a rewrite.",
       "The compromise I have settled on is boring infrastructure and interesting product. Django, PostgreSQL, Docker — nothing surprising underneath — so all the creative risk goes into what the user actually touches.",
       "Owning both sides also kills a lot of meetings. When the person estimating the work is the person doing it, scope conversations get honest fast.",

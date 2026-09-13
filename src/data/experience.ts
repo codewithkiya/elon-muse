@@ -11,10 +11,10 @@ export type ExperienceItem = {
 export const experience: ExperienceItem[] = [
   {
     year: "2026 — Now",
-    role: "Developer & Digital Manager",
+    role: "Founder, Developer & Digital Manager",
     org: "Hundaf Digital Solution",
     location: "Bale Robe, Ethiopia",
-    body: "Building software products and managing digital delivery for clients across education, finance, healthcare and real estate.",
+    body: "Founded Hundaf Digital Solution and now build its software products while leading digital delivery across education, finance, healthcare and real estate.",
     achievements: [
       "Shipped multi-tenant school SaaS to production",
       "Led digital delivery for multiple client platforms",

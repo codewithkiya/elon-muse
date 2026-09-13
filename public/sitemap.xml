@@ -41,11 +41,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://elon-muse.lovable.app/projects/smartstudy3d</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://elon-muse.lovable.app/blog</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
