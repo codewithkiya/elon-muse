@@ -343,13 +343,37 @@ function Skills() {
 }
 
 function Achievements() {
+  const awards = achievements.filter((item) => item.org !== "Certified");
+  const certificates = achievements.filter((item) => item.org === "Certified");
+
   return (
     <section className="mx-auto max-w-[1520px] px-5 py-24 md:px-8 md:py-36">
       <SectionIntro index="07" label="MILESTONES" title="Proof of momentum." />
-      <div className="divide-y divide-border border-y border-border">{achievements.slice(0, 6).map((item, index) => <Reveal key={item.title} className="group grid gap-4 py-7 md:grid-cols-[120px_1fr_1fr] md:items-center"><span className="text-5xl font-semibold text-muted-foreground/40 transition-colors group-hover:text-foreground">{String(index + 1).padStart(2, "0")}</span><h3 className="text-lg font-medium">{item.title}</h3><div className="flex justify-between text-sm text-muted-foreground"><span>{item.org}</span><span className="font-mono text-[10px]">{item.year}</span></div></Reveal>)}</div>
+      <div className="divide-y divide-border border-y border-border">{awards.map((item, index) => <Reveal key={item.title} className="group grid gap-4 py-7 md:grid-cols-[120px_1fr_1fr] md:items-center"><span className="text-5xl font-semibold text-muted-foreground/40 transition-colors group-hover:text-foreground">{String(index + 1).padStart(2, "0")}</span><h3 className="text-lg font-medium">{item.title}</h3><div className="flex justify-between text-sm text-muted-foreground"><span>{item.org}</span><span className="font-mono text-[10px]">{item.year}</span></div></Reveal>)}</div>
+
+      {certificates.length > 0 && (
+        <div className="mt-16">
+          <div className="flex items-baseline justify-between border-b border-border pb-4">
+            <h3 className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground">CERTIFICATIONS</h3>
+            <span className="font-mono text-[10px] text-muted-foreground">{certificates.length} CREDENTIALS</span>
+          </div>
+          <div className="grid gap-px border-x border-b border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+            {certificates.map((item) => (
+              <Reveal key={item.title} className="group bg-background p-6 transition-colors hover:bg-surface">
+                <div className="flex items-center justify-between font-mono text-[10px] text-muted-foreground">
+                  <span>{item.year}</span>
+                  <span className="border border-border px-2 py-0.5">{item.org.toUpperCase()}</span>
+                </div>
+                <p className="mt-5 text-sm font-medium leading-6">{item.title}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 }
+
 
 function GitHubSection() {
   const [repos, setRepos] = useState<Repo[]>([]);

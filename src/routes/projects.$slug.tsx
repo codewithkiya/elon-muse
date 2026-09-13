@@ -10,22 +10,83 @@ export const Route = createFileRoute("/projects/$slug")({
     if (!project) throw notFound();
     return project;
   },
-  head: ({ loaderData }) => {
-    const title = loaderData ? `${loaderData.name} — Case Study | Kiya` : "Case Study | Kiya";
-    const description = loaderData?.short ?? "Project case study by Endegena Abebe (Kiya).";
+  head: ({ params, loaderData }) => {
+    const url = `https://elon-muse.lovable.app/projects/${params.slug}`;
+    if (!loaderData) {
+      return {
+        meta: [
+          { title: "Case Study | Endegena Abebe (Kiya)" },
+          { name: "description", content: "Project case study by Endegena Abebe (Kiya), full-stack developer." },
+        ],
+        links: [{ rel: "canonical", href: url }],
+      };
+    }
+
+    const title = `${loaderData.name} — ${loaderData.category} Case Study | Kiya`;
+    const description = `${loaderData.short} Built with ${loaderData.tech.slice(0, 4).join(", ")} by Endegena Abebe (Kiya).`.slice(0, 158);
+
     return {
       meta: [
         { title },
         { name: "description", content: description },
+        { name: "keywords", content: [loaderData.name, loaderData.category, ...loaderData.tech, "Ethiopia", "case study"].join(", ") },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "article" },
+        { property: "og:url", content: url },
+        { property: "article:author", content: "Endegena Abebe" },
         { name: "twitter:card", content: "summary" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
       ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "Article",
+                headline: title,
+                description,
+                url,
+                about: loaderData.name,
+                keywords: loaderData.tech.join(", "),
+                author: {
+                  "@type": "Person",
+                  name: "Endegena Abebe",
+                  alternateName: "Kiya",
+                  url: "https://elon-muse.lovable.app/",
+                },
+                publisher: { "@type": "Organization", name: "Hundaf Digital Solution" },
+                mainEntityOfPage: url,
+              },
+              {
+                "@type": "SoftwareApplication",
+                name: loaderData.name,
+                description: loaderData.overview,
+                applicationCategory: loaderData.category,
+                operatingSystem: "Web",
+                url,
+                featureList: loaderData.features,
+                author: { "@type": "Person", name: "Endegena Abebe" },
+              },
+              {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  { "@type": "ListItem", position: 1, name: "Home", item: "https://elon-muse.lovable.app/" },
+                  { "@type": "ListItem", position: 2, name: "Projects", item: "https://elon-muse.lovable.app/#work" },
+                  { "@type": "ListItem", position: 3, name: loaderData.name, item: url },
+                ],
+              },
+            ],
+          }),
+        },
+      ],
     };
   },
+
   component: ProjectPage,
 });
 
