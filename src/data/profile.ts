@@ -1,10 +1,10 @@
 export const profile = {
   name: "Endegena Abebe",
   brand: "KIYA",
-  role: "Full-Stack Developer & Software Engineer",
+  role: "Founder, Full-Stack Developer & Digital Manager",
   location: "Ethiopia — Remote Worldwide",
   headline: "Hi, I'm Endegena Abebe",
-  subheadline: "Full-Stack Developer building scalable digital products.",
+  subheadline: "Founder and full-stack developer building scalable digital products.",
   description:
     "I design and engineer modern web applications, mobile platforms, APIs, and intelligent digital products that turn complex problems into simple experiences.",
   positioning:

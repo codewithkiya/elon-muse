@@ -26,7 +26,8 @@ export const Route = createFileRoute("/")({
           "@type": "Person",
           name: "Endegena Abebe",
           alternateName: "Kiya",
-          jobTitle: "Full Stack Developer & Digital Manager",
+          jobTitle: "Founder, Full Stack Developer & Digital Manager",
+          founder: { "@type": "Organization", name: "Hundaf Digital Solution" },
           worksFor: { "@type": "Organization", name: "Hundaf Digital Solution" },
           url: "https://elon-muse.lovable.app/",
           sameAs: [

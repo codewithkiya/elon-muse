@@ -208,33 +208,6 @@ export const projects: Project[] = [
       "Users get an understandable first read on their situation before paying for professional counsel.",
     tech: ["Python", "Django", "AI APIs", "PostgreSQL"],
   },
-  {
-    slug: "smartstudy3d",
-    name: "SmartStudy3D",
-    category: "EdTech",
-    short:
-      "An interactive education technology platform using 3D visualisation to teach complex concepts.",
-    overview:
-      "SmartStudy3D turns abstract science topics into interactive 3D models students can explore in the browser.",
-    problem:
-      "Science classes lack laboratory equipment, so students memorise diagrams they never actually see in operation.",
-    solution:
-      "Browser-based interactive 3D lessons with guided walkthroughs and comprehension checks.",
-    features: [
-      "Interactive 3D models",
-      "Guided lesson walkthroughs",
-      "Comprehension checkpoints",
-      "Works on mid-range devices",
-      "Teacher classroom mode",
-    ],
-    architecture:
-      "Web-based 3D rendering on the client, lesson content and progress served from a Django API.",
-    challenges:
-      "Keeping 3D scenes performant on low-end classroom hardware.",
-    results:
-      "Students interact with concepts they previously only saw as static textbook diagrams.",
-    tech: ["JavaScript", "Django", "WebGL"],
-  },
 ];
 
 export const featuredProject = projects.find((p) => p.featured) ?? projects[0];

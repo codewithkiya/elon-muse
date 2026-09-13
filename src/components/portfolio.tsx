@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
 import {
   ArrowDown,
   ArrowRight,
@@ -101,40 +101,11 @@ function CustomCursor() {
   );
 }
 
-function LoadingIntro() {
-  const [visible, setVisible] = useState(true);
-  const reduce = useReducedMotion();
-  useEffect(() => {
-    const timer = window.setTimeout(() => setVisible(false), reduce ? 250 : 1350);
-    return () => window.clearTimeout(timer);
-  }, [reduce]);
-  if (!visible) return null;
-  return (
-    <motion.div
-      className="fixed inset-0 z-[120] grid place-items-center bg-background"
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.35 }}
-    >
-      <motion.div
-        initial={reduce ? false : { opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="text-center"
-      >
-        <img src={logo} alt="Kiya.dev" className="mx-auto h-40 w-40 object-cover sm:h-52 sm:w-52" />
-        <div className="mx-auto mt-7 h-px w-36 overflow-hidden bg-border">
-          <motion.div initial={{ x: "-100%" }} animate={{ x: "100%" }} transition={{ duration: 1, ease: "easeInOut" }} className="h-full w-full bg-foreground" />
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
-
 function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 28, mass: 0.25 });
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
@@ -145,8 +116,9 @@ function Navbar() {
     <>
       <header className={cn("fixed inset-x-0 top-0 z-50 transition-all duration-300", scrolled && "border-b border-border bg-background/80 backdrop-blur-xl")}>
         <nav className="mx-auto flex h-16 max-w-[1520px] items-center justify-between px-5 md:px-8" aria-label="Main navigation">
-          <a href="#home" className="font-mono text-xs font-semibold tracking-[0.18em]" aria-label="Kiya.dev home">
-            KIYA.DEV
+          <a href="#home" className="flex items-center gap-2.5 font-mono text-xs font-semibold tracking-[0.18em]" aria-label="Kiya.dev home">
+            <img src={logo} alt="" width="32" height="32" fetchPriority="high" className="h-8 w-8 object-cover" />
+            <span>KIYA.DEV</span>
           </a>
           <div className="hidden items-center gap-7 lg:flex">
             {nav.filter((item) => item.label !== "Services").map((item) => (
@@ -162,6 +134,7 @@ function Navbar() {
             <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu"><Menu /></Button>
           </div>
         </nav>
+        <motion.div className="absolute inset-x-0 bottom-0 h-px origin-left bg-foreground" style={{ scaleX: progress }} />
       </header>
       {open && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="fixed inset-0 z-[70] flex flex-col bg-background p-6 lg:hidden">
@@ -203,7 +176,7 @@ function Hero() {
       <div className="relative mx-auto grid w-full max-w-[1520px] items-center gap-10 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-[1fr_340px]">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
           <div className="mb-7 flex flex-wrap items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-muted-foreground sm:text-xs">
-            <span>SOFTWARE DEVELOPER</span><span>·</span><span>BUILDER</span><span>·</span><span>CREATOR</span>
+            <span>FOUNDER</span><span>·</span><span>FULL-STACK DEVELOPER</span><span>·</span><span>DIGITAL MANAGER</span>
           </div>
           <h1 className="max-w-6xl text-[clamp(3.2rem,8vw,8rem)] font-bold leading-[0.92] tracking-[-0.055em]">
             Building digital products <span className="text-muted-foreground">that actually matter.</span>
@@ -218,7 +191,7 @@ function Hero() {
             </div>
           </div>
         </motion.div>
-        <motion.div initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.15 }} className="hidden lg:block">
+        <motion.div initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.15 }} className="mx-auto w-full max-w-[300px] lg:block lg:max-w-none">
           <div className="relative mx-auto aspect-[4/5] max-w-[320px] overflow-hidden border border-border bg-surface">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,var(--glow),transparent_45%)]" />
             <img src={portrait} alt="Endegena Abebe, full-stack developer" className="relative h-full w-full object-cover object-top brightness-125 grayscale contrast-110" />
@@ -263,7 +236,7 @@ function About() {
           <div className="divide-y divide-border border-y border-border">
             {[
               ["Based in", "Ethiopia 🇪🇹"],
-              ["Role", "Full-Stack Developer"],
+               ["Role", "Founder · Developer · Digital Manager"],
               ["Focus", "Web · SaaS · AI · Automation"],
               ["Currently", "Building digital products"],
             ].map(([label, value]) => (
@@ -291,9 +264,10 @@ function Projects() {
                 to="/projects/$slug"
                 params={{ slug: project.slug }}
                 data-cursor="view"
-                className="group grid gap-4 py-8 transition-colors hover:bg-surface md:grid-cols-[70px_minmax(0,1fr)_minmax(0,1.2fr)_40px] md:items-center md:px-4"
+                className="group relative grid gap-4 overflow-hidden py-8 transition-colors hover:bg-surface md:grid-cols-[70px_minmax(0,1fr)_minmax(0,1.2fr)_40px] md:items-center md:px-4"
               >
-                <span className="font-mono text-xs text-muted-foreground">0{index + 1}</span>
+                <span className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-foreground transition-transform duration-500 group-hover:scale-x-100" />
+                <span className="font-mono text-xs text-muted-foreground transition-transform duration-300 group-hover:translate-x-2">0{index + 1}</span>
                 <div>
                   <h3 className="text-2xl font-semibold tracking-[-0.03em] md:text-3xl">{project.name}</h3>
                   <div className="mt-2 font-mono text-[10px] tracking-[0.14em] text-muted-foreground">{project.category.toUpperCase()}</div>
@@ -466,7 +440,6 @@ function Footer() {
 export function Portfolio() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <LoadingIntro />
       <CustomCursor />
       <Navbar />
       <main>
