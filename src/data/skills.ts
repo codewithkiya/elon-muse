@@ -1,30 +1,22 @@
 export const skillGroups = [
   {
-    group: "Frontend",
-    items: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Bootstrap 5", "Framer Motion", "HTML5", "CSS3"],
+    group: "Frontend Development",
+    items: ["HTML5", "CSS3", "JavaScript", "TypeScript", "React", "Next.js", "Nuxt.js", "Bootstrap 5", "Tailwind CSS", "Vite"],
   },
   {
-    group: "Backend",
-    items: ["Python", "Django", "Django REST", "Node.js", "Express", "REST APIs", "JWT Auth"],
+    group: "Backend Development",
+    items: ["Python", "Django", "Node.js", "Express.js", "NestJS", "FastAPI", "Go", "Fiber", "Laravel", "REST APIs"],
   },
   {
-    group: "Mobile",
-    items: ["Flutter", "Dart", "Responsive PWA", "Android Fundamentals"],
+    group: "Databases & Data",
+    items: ["PostgreSQL", "MySQL", "SQLite", "MongoDB", "Firebase", "Prisma ORM"],
   },
   {
-    group: "Database",
-    items: ["PostgreSQL", "MySQL", "MongoDB", "SQLite", "Query Optimization"],
+    group: "AI & Emerging Tech",
+    items: ["Artificial Intelligence", "AI Integration", "AI-powered Applications", "Machine Learning Fundamentals", "Natural Language Processing", "Accessibility Technology"],
   },
   {
-    group: "DevOps",
-    items: ["Docker", "Linux", "Nginx", "Vercel", "CI/CD", "Netlify"],
-  },
-  {
-    group: "AI",
-    items: ["AI Integration", "Prompt Engineering", "RAG Basics", "Chat Assistants", "Automation"],
-  },
-  {
-    group: "Tools",
-    items: ["Git", "GitHub", "VS Code", "Figma", "Postman"],
+    group: "Tools & DevOps",
+    items: ["Git", "GitHub", "Vercel", "AWS", "Docker", "Linux", "VS Code", "Postman", "npm", "CMD / PowerShell"],
   },
 ] as const;

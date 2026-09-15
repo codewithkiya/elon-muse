@@ -32,32 +32,32 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --font-sans: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
 :root {
-  --radius: 0.875rem;
+  --radius: 0.25rem;
   --background: oklch(0 0 0);
   --foreground: oklch(1 0 0);
-  --surface: oklch(0.075 0 0);
-  --card: oklch(0.095 0 0);
-  --card-foreground: oklch(0.981 0.004 250);
-  --popover: oklch(0.192 0.026 258);
-  --popover-foreground: oklch(0.981 0.004 250);
+  --surface: oklch(0.055 0 0);
+  --card: oklch(0.07 0 0);
+  --card-foreground: oklch(1 0 0);
+  --popover: oklch(0.07 0 0);
+  --popover-foreground: oklch(1 0 0);
   --primary: oklch(1 0 0);
   --primary-foreground: oklch(0 0 0);
   --bright: oklch(0.82 0 0);
   --secondary: oklch(0.12 0 0);
-  --secondary-foreground: oklch(0.981 0.004 250);
+  --secondary-foreground: oklch(1 0 0);
   --muted: oklch(0.12 0 0);
   --muted-foreground: oklch(0.62 0 0);
   --accent: oklch(0.16 0 0);
-  --accent-foreground: oklch(0.981 0.004 250);
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.6 0.22 25);
   --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(1 0 0 / 0.14);
+  --border: oklch(1 0 0 / 0.3);
   --input: oklch(1 0 0 / 0.2);
   --ring: oklch(1 0 0 / 0.6);
   --glow: oklch(1 0 0 / 0.09);
@@ -112,7 +112,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-bright);
+    outline: 2px solid var(--color-foreground);
     outline-offset: 3px;
   }
 }
@@ -146,6 +146,11 @@
   line-height: 1.03;
   letter-spacing: -0.035em;
   font-weight: 800;
+}
+
+@utility dot-field {
+  background-image: radial-gradient(circle, color-mix(in oklab, var(--color-foreground) 18%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 @utility h-section {
