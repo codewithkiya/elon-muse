@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, Github, Mail, MapPin, Menu, X } from "lucide-react";
+import { ArrowUpRight, Code2, Mail, MapPin, Menu, X } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -190,7 +190,7 @@ function PublicCode() {
   useEffect(() => { const node = sentinel.current; if (!node) return; const observer = new IntersectionObserver(([entry]) => { if (entry?.isIntersecting) setShown((value) => Math.min(value + 5, sorted.length)); }, { rootMargin: "140px" }); observer.observe(node); return () => observer.disconnect(); }, [sorted.length]);
   return (
     <section className="grid border-b border-border lg:grid-cols-2">
-      <div className="border-b border-border p-5 md:p-10 lg:border-b-0 lg:border-r"><p className="font-display text-xs uppercase text-muted-foreground">05 / Code in public</p><h2 className="mt-4 font-display text-4xl font-bold uppercase md:text-6xl">Latest<br />repositories.</h2><a href={socials.github} target="_blank" rel="noreferrer" className="mt-10 inline-flex items-center gap-3 text-sm font-semibold">GitHub profile <Github className="h-4 w-4" /></a></div>
+      <div className="border-b border-border p-5 md:p-10 lg:border-b-0 lg:border-r"><p className="font-display text-xs uppercase text-muted-foreground">05 / Code in public</p><h2 className="mt-4 font-display text-4xl font-bold uppercase md:text-6xl">Latest<br />repositories.</h2><a href={socials.github} target="_blank" rel="noreferrer" className="mt-10 inline-flex items-center gap-3 text-sm font-semibold">GitHub profile <Code2 className="h-4 w-4" /></a></div>
       <div className="divide-y divide-border">{sorted.slice(0, shown).map((repo) => <a key={repo.id} href={repo.html_url} target="_blank" rel="noreferrer" className="group grid gap-3 p-5 transition-colors hover:bg-accent md:grid-cols-[1fr_auto] md:p-7"><div><h3 className="font-display text-sm font-bold uppercase">{repo.name}</h3><p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{repo.description || "Open-source project by Kiya."}</p></div><span className="text-xs text-muted-foreground">{repo.language || "Code"} · ★ {repo.stargazers_count}</span></a>)}<div ref={sentinel} className="h-1" /></div>
     </section>
   );
