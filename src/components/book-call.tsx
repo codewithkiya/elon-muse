@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { CalendarDays, Clock, Linkedin, ArrowUpRight } from "lucide-react";
+import { CalendarDays, Clock, Briefcase, ArrowUpRight } from "lucide-react";
 import { socials } from "@/data/profile";
 
 const slots = ["09:00", "11:00", "14:00", "16:00", "18:00"];
@@ -42,7 +42,7 @@ export function BookCall() {
           <h2 className="font-display text-[clamp(2.5rem,6vw,5.5rem)] font-bold uppercase leading-[0.9]">30 minutes.<br />Real answers.</h2>
           <p className="mt-6 max-w-md text-muted-foreground">Pick a day and time that suits you. I'll confirm by email with a meeting link — usually within a few hours.</p>
           <a href={socials.linkedin} target="_blank" rel="noreferrer" className="group mt-10 flex max-w-md items-center justify-between border border-border p-5 transition-colors hover:border-foreground">
-            <span className="flex items-center gap-3"><Linkedin className="h-5 w-5" /><span><span className="block font-semibold">Connect on LinkedIn</span><span className="text-sm text-muted-foreground">Posts on building, AI and SaaS in Ethiopia</span></span></span>
+            <span className="flex items-center gap-3"><Briefcase className="h-5 w-5" /><span><span className="block font-semibold">Connect on LinkedIn</span><span className="text-sm text-muted-foreground">Posts on building, AI and SaaS in Ethiopia</span></span></span>
             <ArrowUpRight className="h-5 w-5 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
           </a>
         </div>
