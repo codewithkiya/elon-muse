@@ -1,3 +1,4 @@
+import { Workbench } from "@/components/workbench";
 import { BookCall } from "@/components/book-call";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -264,5 +265,5 @@ function Contact() {
 }
 
 export function Portfolio() {
-  return <div className="min-h-screen bg-background text-foreground"><ScrollProgress /><Navbar /><main><Hero /><Snapshot /><Work /><Expertise /><Journey /><PublicCode /><Notes /><BookCall /><Contact /></main><footer className="flex flex-col gap-3 border-t border-border px-5 py-6 font-display text-[10px] uppercase text-muted-foreground sm:flex-row sm:items-center sm:justify-between md:px-10"><span>Endegena Abebe © 2026</span><span>Founder · Full-Stack Developer · Digital Manager</span></footer></div>;
+  return <div className="min-h-screen bg-background text-foreground"><ScrollProgress /><Navbar /><main><Hero /><Snapshot /><Workbench /><Work /><Expertise /><Journey /><PublicCode /><Notes /><BookCall /><Contact /></main><footer className="flex flex-col gap-3 border-t border-border px-5 py-6 font-display text-[10px] uppercase text-muted-foreground sm:flex-row sm:items-center sm:justify-between md:px-10"><span>Endegena Abebe © 2026</span><span>Founder · Full-Stack Developer · Digital Manager</span></footer></div>;
 }

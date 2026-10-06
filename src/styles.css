@@ -230,3 +230,17 @@
     scroll-behavior: auto !important;
   }
 }
+
+@utility brutal-card {
+  border: 1px solid var(--foreground);
+  background: var(--background);
+  box-shadow: 5px 5px 0 0 color-mix(in oklab, var(--foreground) 55%, transparent);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+@utility brutal-lift {
+  &:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 0 var(--foreground); }
+}
+@utility dot-paper {
+  background-image: radial-gradient(color-mix(in oklab, var(--foreground) 18%, transparent) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
