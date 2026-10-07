@@ -39,7 +39,7 @@ export function TechStack() {
           </motion.div>
         </div>
 
-        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid items-start gap-6 md:grid-cols-2 lg:grid-cols-3">
           {skillGroups.map((g, gi) => (
             <motion.div key={g.group} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: gi * 0.07, type: "spring", stiffness: 140, damping: 20 }} className={`brutal-card p-5 ${gi === 0 ? "lg:col-span-2" : ""}`}>
               <div className="flex items-baseline justify-between border-b border-foreground pb-3">

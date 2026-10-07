@@ -124,7 +124,7 @@ function Journey() {
           <div className="grid grid-cols-2 gap-4">
             {certificates.map((item, i) => <motion.div key={item.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }} className="brutal-card brutal-lift p-4"><span className="text-[10px] text-muted-foreground">{item.year} · Certified</span><p className="mt-6 text-sm font-bold leading-5">{item.title.replace("Ethiopian 5 Million Coders — ", "")}</p><p className="mt-2 text-[10px] uppercase text-muted-foreground">5 Million Coders</p></motion.div>)}
           </div>
-          <div className="border border-foreground bg-foreground p-5 text-background shadow-[5px_5px_0_0_var(--muted-foreground)]"><p className="mb-3 font-bold">Awards</p>{awards.map((item) => <div key={item.title} className="grid grid-cols-[56px_1fr] border-t border-background/30 py-2 text-sm"><span className="opacity-60">{item.year}</span><span>{item.title}</span></div>)}</div>
+          <div className="border border-foreground bg-foreground p-5 text-background shadow-[5px_5px_0_0_var(--muted-foreground)]"><p className="mb-3 font-bold">Awards</p>{awards.map((item) => <div key={item.title} className="grid grid-cols-[76px_1fr] border-t border-background/30 py-2 text-sm"><span className="opacity-60">{item.year}</span><span>{item.title}</span></div>)}</div>
         </div>
       </div>
     </Wrap>
