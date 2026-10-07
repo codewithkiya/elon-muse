@@ -1,3 +1,4 @@
+import { TechStack } from "@/components/tech-stack";
 import { Workbench } from "@/components/workbench";
 import { BookCall } from "@/components/book-call";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -117,43 +118,6 @@ function Navbar() {
   );
 }
 
-function Hero() {
-  const reduce = useReducedMotion();
-  const pointerX = useMotionValue(0);
-  const pointerY = useMotionValue(0);
-  const portraitX = useSpring(useTransform(pointerX, [-1, 1], [-9, 9]), { stiffness: 90, damping: 24 });
-  const portraitY = useSpring(useTransform(pointerY, [-1, 1], [-7, 7]), { stiffness: 90, damping: 24 });
-  const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
-    if (reduce || event.pointerType === "touch") return;
-    const rect = event.currentTarget.getBoundingClientRect();
-    pointerX.set(((event.clientX - rect.left) / rect.width - 0.5) * 2);
-    pointerY.set(((event.clientY - rect.top) / rect.height - 0.5) * 2);
-  };
-  return (
-    <section id="home" onPointerMove={handlePointerMove} onPointerLeave={() => { pointerX.set(0); pointerY.set(0); }} className="relative grid min-h-[78svh] overflow-hidden border-b border-border lg:grid-cols-[1.35fr_0.65fr]">
-      <div aria-hidden="true" className="motion-grid absolute inset-0 pointer-events-none" />
-      <div className="relative z-10 flex flex-col justify-between px-5 py-10 md:px-10 md:py-14">
-        <motion.div initial={reduce ? false : { opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.6 }} className="flex flex-wrap items-center justify-between gap-4 font-display text-[11px] font-semibold uppercase text-muted-foreground">
-          <span>{profile.role}</span><span className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-foreground" /> Available worldwide</span>
-        </motion.div>
-        <div className="mt-20">
-          <h1 className="font-display text-[clamp(3.2rem,10vw,9.5rem)] font-bold uppercase leading-[0.84]"><AnimatedWords>Endegena</AnimatedWords><AnimatedWords>Abebe</AnimatedWords></h1>
-          <motion.div initial={reduce ? false : { opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.62, duration: 0.7 }} className="mt-10 flex flex-col gap-8 border-t border-border pt-6 md:flex-row md:items-end md:justify-between">
-            <p className="max-w-2xl text-lg leading-8 md:text-2xl md:leading-9">I build performant, accessible, and AI-powered digital systems—from interface to infrastructure.</p>
-            <a href="#work" className="group flex shrink-0 items-center gap-3 font-display text-xs font-semibold uppercase">Explore work <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" /></a>
-          </motion.div>
-        </div>
-      </div>
-      <motion.div initial={reduce ? false : { opacity: 0, clipPath: "inset(100% 0 0 0)" }} animate={{ opacity: 1, clipPath: "inset(0% 0 0 0)" }} transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }} className="relative min-h-[420px] overflow-hidden border-t border-border bg-surface lg:border-l lg:border-t-0">
-        <motion.img src={portrait} alt="Endegena Abebe, founder and full-stack developer" className="absolute -inset-3 h-[calc(100%+1.5rem)] w-[calc(100%+1.5rem)] object-cover object-top grayscale" style={reduce ? undefined : { x: portraitX, y: portraitY }} fetchPriority="high" />
-        <div className="absolute inset-x-0 bottom-0 flex items-center justify-between border-t border-border bg-background/90 p-5 backdrop-blur-md">
-          <span className="font-display text-xs uppercase">Founder / Builder</span><span className="flex items-center gap-2 text-xs text-muted-foreground"><MapPin className="h-3.5 w-3.5" /> Ethiopia</span>
-        </div>
-      </motion.div>
-    </section>
-  );
-}
-
 function Snapshot() {
   return (
     <section className="grid border-b border-border sm:grid-cols-3">
@@ -162,42 +126,6 @@ function Snapshot() {
           <motion.span initial={{ opacity: 0, scale: 0.85 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.1 + index * 0.09, type: "spring" }} className="font-display text-4xl font-bold md:text-6xl">{stat.value}{stat.suffix}</motion.span><span className="max-w-24 text-right text-xs uppercase text-muted-foreground">{index === 2 ? "Core technologies" : stat.label}</span>
         </motion.div>
       ))}
-    </section>
-  );
-}
-
-function Work() {
-  return (
-    <section id="work">
-      <div className="flex items-end justify-between border-b border-border px-5 py-10 md:px-10 md:py-14"><div><p className="font-display text-xs uppercase text-muted-foreground">01 / Selected work</p><h2 className="mt-4 font-display text-4xl font-bold uppercase md:text-6xl">Built systems</h2></div><span className="hidden text-xs uppercase text-muted-foreground md:block">Case studies / {String(projects.length).padStart(2, "0")}</span></div>
-      {projects.map((project, index) => (
-        <Reveal key={project.slug}>
-          <Link to="/projects/$slug" params={{ slug: project.slug }} className="project-row group relative grid overflow-hidden border-b border-border px-5 py-10 transition-colors hover:bg-foreground hover:text-background md:grid-cols-[90px_1fr_400px_30px] md:items-center md:px-10 md:py-14">
-            <span className="font-display text-sm text-muted-foreground group-hover:text-background/60">{String(index + 1).padStart(2, "0")}</span>
-            <h3 className="mt-4 font-display text-3xl font-bold uppercase md:mt-0 md:text-5xl">{project.name}</h3>
-            <div className="mt-6 md:mt-0"><p className="text-xs uppercase opacity-60">{project.category}</p><p className="mt-2 max-w-sm text-sm leading-6 opacity-80">{project.short}</p></div>
-            <ArrowUpRight className="mt-6 h-5 w-5 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 md:mt-0" />
-          </Link>
-        </Reveal>
-      ))}
-    </section>
-  );
-}
-
-function Expertise() {
-  return (
-    <section id="expertise" className="border-b border-border bg-surface">
-      <div className="border-b border-border px-5 py-10 md:px-10 md:py-14"><p className="font-display text-xs uppercase text-muted-foreground">02 / Expertise index</p><h2 className="mt-4 max-w-5xl font-display text-4xl font-bold uppercase md:text-6xl">Full-stack depth.<br />Product-level thinking.</h2></div>
-      <div className="grid md:grid-cols-2 xl:grid-cols-5">
-        {skillGroups.map((group, index) => (
-          <Reveal key={group.group} className="border-b border-border p-6 md:border-r md:p-8 xl:border-b-0 xl:last:border-r-0">
-            <div className="flex items-baseline justify-between gap-4"><h3 className="font-display text-sm font-bold uppercase">{group.group}</h3><span className="font-display text-xs text-muted-foreground">0{index + 1}</span></div>
-            <ul className="mt-10 space-y-0">
-              {group.items.map((skill) => <li key={skill} className="border-t border-border py-3 text-sm">{skill}</li>)}
-            </ul>
-          </Reveal>
-        ))}
-      </div>
     </section>
   );
 }
@@ -265,5 +193,5 @@ function Contact() {
 }
 
 export function Portfolio() {
-  return <div className="min-h-screen bg-background text-foreground"><ScrollProgress /><Navbar /><main><Hero /><Snapshot /><Workbench /><Work /><Expertise /><Journey /><PublicCode /><Notes /><BookCall /><Contact /></main><footer className="flex flex-col gap-3 border-t border-border px-5 py-6 font-display text-[10px] uppercase text-muted-foreground sm:flex-row sm:items-center sm:justify-between md:px-10"><span>Endegena Abebe © 2026</span><span>Founder · Full-Stack Developer · Digital Manager</span></footer></div>;
+  return <div className="dot-paper min-h-screen bg-background font-display text-foreground"><ScrollProgress /><Navbar /><main><Workbench /><Snapshot /><TechStack /><Journey /><PublicCode /><Notes /><BookCall /><Contact /></main><footer className="flex flex-col gap-3 border-t border-border px-5 py-6 font-display text-[10px] uppercase text-muted-foreground sm:flex-row sm:items-center sm:justify-between md:px-10"><span>Endegena Abebe © 2026</span><span>Founder · Full-Stack Developer · Digital Manager</span></footer></div>;
 }
