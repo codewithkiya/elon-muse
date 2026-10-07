@@ -15,13 +15,13 @@ export function Workbench() {
   const list = active ? projects.filter((p) => p.category === active || p.tech.includes(active)) : projects;
 
   return (
-    <section id="workbench" className="dot-paper border-t border-border px-5 py-20 font-display md:px-10">
+    <section id="workbench" className="px-5 pb-4 pt-12 md:px-10">
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
           <div className="brutal-card">
             <div className="flex items-center gap-5 border-b border-foreground p-5">
               <img src={portrait} alt="Endegena Abebe (Kiya)" loading="lazy" className="h-20 w-20 shrink-0 rounded-full border border-foreground object-cover grayscale" />
-              <p className="text-xl leading-snug md:text-3xl">Hi, I'm <b>Endegena</b> or <b>kiya</b> on the internet.</p>
+              <h1 className="text-xl font-normal leading-snug md:text-3xl">Hi, I'm <b>Endegena</b> or <b>kiya</b> on the internet.</h1>
             </div>
             <div className="flex flex-wrap gap-4 border-b border-foreground p-5 text-sm">
               <a href={socials.github} target="_blank" rel="noreferrer" className="underline underline-offset-4">github</a>
@@ -38,7 +38,7 @@ export function Workbench() {
           </div>
         </div>
 
-        <h3 className="mt-16 text-3xl font-bold md:text-4xl">Projects</h3>
+        <p className="mt-16 text-xs uppercase text-muted-foreground">01 / Selected work</p><h2 className="mt-3 text-3xl font-bold md:text-5xl">Projects</h2>
         <div className="mt-5 flex flex-wrap gap-2">
           <button onClick={() => setActive(null)} className={`border border-foreground px-2 py-0.5 text-xs ${!active ? "bg-foreground text-background" : "bg-background"}`}>All</button>
           {tags.map((t) => (
