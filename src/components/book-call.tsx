@@ -35,18 +35,18 @@ export function BookCall() {
     `border px-3 py-2 font-display text-xs uppercase transition-colors ${active ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground"}`;
 
   return (
-    <section id="book" className="border-t border-border px-5 py-24 md:px-10">
+    <section id="book" className="px-5 py-16 md:px-10"><div className="mx-auto max-w-6xl">
       <p className="font-display text-xs uppercase text-muted-foreground">06 / Book a call</p>
       <div className="mt-6 grid gap-12 lg:grid-cols-[1fr_1.2fr]">
         <div>
-          <h2 className="font-display text-[clamp(2.5rem,6vw,5.5rem)] font-bold uppercase leading-[0.9]">30 minutes.<br />Real answers.</h2>
+          <h2 className="font-display text-[clamp(2.2rem,5vw,4.5rem)] font-bold leading-[0.95]">30 minutes.<br />Real answers.</h2>
           <p className="mt-6 max-w-md text-muted-foreground">Pick a day and time that suits you. I'll confirm by email with a meeting link — usually within a few hours.</p>
-          <a href={socials.linkedin} target="_blank" rel="noreferrer" className="group mt-10 flex max-w-md items-center justify-between border border-border p-5 transition-colors hover:border-foreground">
+          <a href={socials.linkedin} target="_blank" rel="noreferrer" className="group mt-10 brutal-card brutal-lift flex max-w-md items-center justify-between p-5">
             <span className="flex items-center gap-3"><Briefcase className="h-5 w-5" /><span><span className="block font-semibold">Connect on LinkedIn</span><span className="text-sm text-muted-foreground">Posts on building, AI and SaaS in Ethiopia</span></span></span>
             <ArrowUpRight className="h-5 w-5 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
           </a>
         </div>
-        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ type: "spring", stiffness: 120, damping: 20 }} className="border border-border p-6 md:p-8">
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ type: "spring", stiffness: 120, damping: 20 }} className="brutal-card p-6 md:p-8">
           <p className="flex items-center gap-2 font-display text-xs uppercase text-muted-foreground"><CalendarDays className="h-4 w-4" /> Choose a day</p>
           <div className="mt-4 grid grid-cols-4 gap-2 sm:grid-cols-7">
             {days.map((d, i) => (
@@ -69,6 +69,6 @@ export function BookCall() {
           </button>
         </motion.div>
       </div>
-    </section>
+    </div></section>
   );
 }

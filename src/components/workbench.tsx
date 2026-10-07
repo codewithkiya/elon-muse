@@ -15,7 +15,7 @@ export function Workbench() {
   const list = active ? projects.filter((p) => p.category === active || p.tech.includes(active)) : projects;
 
   return (
-    <section id="workbench" className="dot-paper border-t border-border px-5 py-20 font-display md:px-10">
+    <section id="workbench" className="px-5 pb-4 pt-12 md:px-10">
       <div className="mx-auto max-w-6xl">
         <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
           <div className="brutal-card">
@@ -38,7 +38,7 @@ export function Workbench() {
           </div>
         </div>
 
-        <h3 className="mt-16 text-3xl font-bold md:text-4xl">Projects</h3>
+        <p className="mt-16 text-xs uppercase text-muted-foreground">01 / Selected work</p><h2 className="mt-3 text-3xl font-bold md:text-5xl">Projects</h2>
         <div className="mt-5 flex flex-wrap gap-2">
           <button onClick={() => setActive(null)} className={`border border-foreground px-2 py-0.5 text-xs ${!active ? "bg-foreground text-background" : "bg-background"}`}>All</button>
           {tags.map((t) => (
