@@ -21,7 +21,7 @@ export function Workbench() {
           <div className="brutal-card">
             <div className="flex items-center gap-5 border-b border-foreground p-5">
               <img src={portrait} alt="Endegena Abebe (Kiya)" loading="lazy" className="h-20 w-20 shrink-0 rounded-full border border-foreground object-cover grayscale" />
-              <p className="text-xl leading-snug md:text-3xl">Hi, I'm <b>Endegena</b> or <b>kiya</b> on the internet.</p>
+              <h1 className="text-xl font-normal leading-snug md:text-3xl">Hi, I'm <b>Endegena</b> or <b>kiya</b> on the internet.</h1>
             </div>
             <div className="flex flex-wrap gap-4 border-b border-foreground p-5 text-sm">
               <a href={socials.github} target="_blank" rel="noreferrer" className="underline underline-offset-4">github</a>

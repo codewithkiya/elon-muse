@@ -5,23 +5,18 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   AnimatePresence,
   motion,
-  useMotionValue,
   useReducedMotion,
   useScroll,
   useSpring,
-  useTransform,
 } from "framer-motion";
-import { ArrowUpRight, Code2, Mail, MapPin, Menu, X } from "lucide-react";
+import { Code2, Mail, Menu, X } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import logo from "@/assets/kiya-logo.jpg";
-import portrait from "@/assets/kiya-portrait.png";
 import { achievements, experience } from "@/data/experience";
 import { posts } from "@/data/posts";
-import { profile, socials, stats } from "@/data/profile";
-import { projects } from "@/data/projects";
-import { skillGroups } from "@/data/skills";
+import { socials, stats } from "@/data/profile";
 
 type Repo = {
   id: number;
@@ -53,27 +48,6 @@ function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 140, damping: 28, mass: 0.25 });
   return <motion.div aria-hidden="true" className="fixed inset-x-0 top-0 z-[70] h-px origin-left bg-foreground" style={{ scaleX }} />;
-}
-
-function AnimatedWords({ children }: { children: string }) {
-  const reduce = useReducedMotion();
-  return (
-    <span aria-label={children} className="block overflow-hidden">
-      <span aria-hidden="true" className="flex flex-wrap gap-x-[0.22em]">
-        {children.split(" ").map((word, index) => (
-          <motion.span
-            key={`${word}-${index}`}
-            className="inline-block"
-            initial={reduce ? false : { y: "115%", rotate: 2 }}
-            animate={{ y: 0, rotate: 0 }}
-            transition={{ duration: 0.85, delay: 0.14 + index * 0.09, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {word}
-          </motion.span>
-        ))}
-      </span>
-    </span>
-  );
 }
 
 const navItems = [
