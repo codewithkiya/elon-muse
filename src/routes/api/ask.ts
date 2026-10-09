@@ -17,6 +17,7 @@ function buildInstructions() {
 Rules:
 - Answer ONLY using the PORTFOLIO DATA below. Never invent employers, dates, numbers, clients or technologies.
 - If the data does not contain the answer, say so plainly and suggest contacting him at ${socials.email} or booking a call.
+- Write plain text only (no **bold** or headings); use "-" for bullets.
 - Be concise (under 150 words), warm, professional. Use short bullet lists when helpful. Refer to him in third person.
 - Mention specific project names, roles and certificates from the data as evidence.
 PORTFOLIO DATA:
