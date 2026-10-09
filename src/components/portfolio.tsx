@@ -1,6 +1,7 @@
 import { TechStack } from "@/components/tech-stack";
 import { Workbench } from "@/components/workbench";
 import { BookCall } from "@/components/book-call";
+import { AskKiya } from "@/components/ask-kiya";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   AnimatePresence,
@@ -178,5 +179,5 @@ function Contact() {
 }
 
 export function Portfolio() {
-  return <div className="dot-paper min-h-screen bg-background font-display text-foreground"><ScrollProgress /><Navbar /><main><Workbench /><Snapshot /><TechStack /><Journey /><PublicCode /><Notes /><BookCall /><Contact /></main><footer className="flex flex-col gap-3 border-t border-foreground bg-background px-5 py-6 font-display text-[10px] uppercase text-muted-foreground sm:flex-row sm:items-center sm:justify-between md:px-10"><span>Endegena Abebe © 2026</span><span>Founder · Full-Stack Developer · Digital Manager</span></footer></div>;
+  return <div className="dot-paper min-h-screen bg-background font-display text-foreground"><ScrollProgress /><Navbar /><main><Workbench /><Snapshot /><TechStack /><Journey /><PublicCode /><Notes /><AskKiya /><BookCall /><Contact /></main><footer className="flex flex-col gap-3 border-t border-foreground bg-background px-5 py-6 font-display text-[10px] uppercase text-muted-foreground sm:flex-row sm:items-center sm:justify-between md:px-10"><span>Endegena Abebe © 2026</span><span>Founder · Full-Stack Developer · Digital Manager</span></footer></div>;
 }
