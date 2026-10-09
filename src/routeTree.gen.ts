@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as OfflineRouteImport } from './routes/offline'
+import { Route as ApiAskRouteImport } from './routes/api/ask'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ProjectsSlugRouteImport } from './routes/projects.$slug'
 
@@ -30,6 +31,11 @@ const OfflineRoute = OfflineRouteImport.update({
   path: '/offline',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAskRoute = ApiAskRouteImport.update({
+  id: '/api/ask',
+  path: '/api/ask',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/blog': typeof BlogRouteWithChildren
   '/offline': typeof OfflineRoute
+  '/api/ask': typeof ApiAskRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/blog': typeof BlogRouteWithChildren
   '/offline': typeof OfflineRoute
+  '/api/ask': typeof ApiAskRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
 }
@@ -60,22 +68,32 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/blog': typeof BlogRouteWithChildren
   '/offline': typeof OfflineRoute
+  '/api/ask': typeof ApiAskRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/blog' | '/offline' | '/blog/$slug' | '/projects/$slug'
+  fullPaths:
+    '/' | '/blog' | '/offline' | '/api/ask' | '/blog/$slug' | '/projects/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/blog' | '/offline' | '/blog/$slug' | '/projects/$slug'
+  to:
+    '/' | '/blog' | '/offline' | '/api/ask' | '/blog/$slug' | '/projects/$slug'
   id:
-    '__root__' | '/' | '/blog' | '/offline' | '/blog/$slug' | '/projects/$slug'
+    | '__root__'
+    | '/'
+    | '/blog'
+    | '/offline'
+    | '/api/ask'
+    | '/blog/$slug'
+    | '/projects/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BlogRoute: typeof BlogRouteWithChildren
   OfflineRoute: typeof OfflineRoute
+  ApiAskRoute: typeof ApiAskRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
 }
 
@@ -100,6 +118,13 @@ declare module '@tanstack/react-router' {
       path: '/offline'
       fullPath: '/offline'
       preLoaderRoute: typeof OfflineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ask': {
+      id: '/api/ask'
+      path: '/api/ask'
+      fullPath: '/api/ask'
+      preLoaderRoute: typeof ApiAskRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/$slug': {
@@ -133,6 +158,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BlogRoute: BlogRouteWithChildren,
   OfflineRoute: OfflineRoute,
+  ApiAskRoute: ApiAskRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
 }
 export const routeTree = rootRouteImport
