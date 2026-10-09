@@ -1,45 +1,11 @@
-import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { CalendarDays, Briefcase, ArrowUpRight } from "lucide-react";
 import { socials } from "@/data/profile";
-
-declare global {
-  interface Window {
-    Cal?: (action: string, options?: Record<string, unknown>) => void;
-  }
-}
 
 const CAL_LINK = "endegena-abebe-caigil";
 const CAL_PAGE = `https://cal.com/${CAL_LINK}`;
 
 export function BookCall() {
-  const embedRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const scriptId = "cal-embed-script";
-    const init = () => {
-      window.Cal?.("inline", {
-        elementOrSelector: embedRef.current,
-        calLink: CAL_LINK,
-        layout: "month_view",
-      });
-      window.Cal?.("ui", {
-        styles: { branding: { brandColor: "#000000" } },
-        hideEventTypeDetails: false,
-        layout: "month_view",
-      });
-    };
-    if (document.getElementById(scriptId)) {
-      init();
-      return;
-    }
-    const script = document.createElement("script");
-    script.id = scriptId;
-    script.src = "https://app.cal.com/embed/embed.js";
-    script.async = true;
-    script.onload = init;
-    document.head.appendChild(script);
-  }, []);
 
   return (
     <section id="book" className="px-5 py-16 md:px-10"><div className="mx-auto max-w-6xl">
@@ -58,7 +24,7 @@ export function BookCall() {
           </a>
         </div>
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ type: "spring", stiffness: 120, damping: 20 }} className="brutal-card overflow-hidden p-2 md:p-4">
-          <div ref={embedRef} style={{ width: "100%", height: "100%", minHeight: 560, overflow: "auto" }} aria-label="Booking calendar" />
+          <iframe src={`${CAL_PAGE}?embed=true&layout=month_view`} title="Book a call with Endegena Abebe" loading="lazy" className="h-[560px] w-full border-0" allow="payment" />
         </motion.div>
       </div>
     </div></section>
